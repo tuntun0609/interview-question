@@ -1,0 +1,11 @@
+.editor {
+  @apply h-full;
+}
+
+.editor :global(.w-md-editor-toolbar) {
+  @apply h-12;
+}
+
+.editor :global(.w-md-editor-area) {
+  @apply overflow-x-hidden;
+}
