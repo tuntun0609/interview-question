@@ -5,7 +5,8 @@ import { getExtraCommands } from '@uiw/react-md-editor/commands'
 import { LoaderCircle, Save } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-import styles from './index.module.css'
+import styles from './index.module.scss'
+import 'highlight.js/styles/atom-one-dark.min.css'
 import './markdown-editor.css'
 import { Button } from '../ui/button'
 
@@ -20,23 +21,7 @@ const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
 })
 
 export function Editor() {
-  const [value, setValue] = useState(`**Hello world!!!**
-
-\`\`\`js
-const a = 1
-\`\`\`
-
-\`\`\`ts
-const a = 1
-\`\`\`
-
-\`\`\`python
-const a = 1
-\`\`\`
-
-\`\`\`html
-<div>123</div>
-\`\`\``)
+  const [value, setValue] = useState('')
   return (
     <div className={styles.editor}>
       <MDEditor
@@ -64,5 +49,3 @@ const a = 1
     </div>
   )
 }
-
-export default Editor

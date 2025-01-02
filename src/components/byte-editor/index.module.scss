@@ -1,0 +1,26 @@
+.editor {
+  @apply h-full;
+
+  ol {
+    list-style-type: decimal;
+  }
+  ul {
+    list-style-type: disc;
+
+    ul {
+      list-style-type: circle;
+    }
+  }
+
+  :global {
+    .bytemd {
+      @apply h-[calc(100vh-64px)] border-none;
+    }
+
+    .bytemd-toolbar-right {
+      .bytemd-toolbar-icon:last-child {
+        @apply hidden;
+      }
+    }
+  }
+}
