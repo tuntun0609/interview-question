@@ -14,11 +14,15 @@
 
   :global {
     .bytemd {
-      @apply h-[calc(100vh-64px)] border-none;
+      @apply h-[calc(100vh-64px-48px)] border-none;
+    }
+
+    .bytemd-fullscreen.bytemd {
+      @apply z-[51];
     }
 
     .bytemd-toolbar-right {
-      .bytemd-toolbar-icon:last-child {
+      .bytemd-toolba-icon:last-child {
         @apply hidden;
       }
     }

@@ -14,8 +14,16 @@ import './editor.css'
 import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 import zhCN from 'bytemd/locales/zh_Hans.json'
+import codeCopy from './plugin/copy-btn'
 
-const plugins = [gfm(), highlight(), frontmatter(), math(), mediumZoom()]
+const plugins = [
+  gfm(),
+  highlight(),
+  frontmatter(),
+  math(),
+  mediumZoom(),
+  codeCopy(),
+]
 
 export const ByteEditor = () => {
   const [value, setValue] = useState('')
