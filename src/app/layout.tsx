@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
+import { zhCN } from '@clerk/localizations'
 import './globals.css'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -14,14 +16,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="">
-          <Header />
-          <main className="min-h-[calc(100vh-64px)]">{children}</main>
-          <Footer />
-        </div>
-      </body>
-    </html>
+    <ClerkProvider localization={zhCN}>
+      <html lang="en">
+        <body>
+          <div className="">
+            <Header />
+            <main className="min-h-[calc(100vh-64px)]">{children}</main>
+            <Footer />
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
