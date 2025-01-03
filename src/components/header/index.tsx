@@ -9,14 +9,25 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
+import { isAdmin } from '@/lib/auth/is-admin'
 
-export default function Header() {
+export default async function Header() {
+  const user = await currentUser()
+
   return (
     <header className="flex sticky top-0 z-50 bg-background items-center justify-between h-16 px-4 border-b border-gray-200">
-      <Link href="/" className="flex items-center gap-2">
-        <Image src="/logo.svg" alt="logo" width={28} height={28} />
-        <span className="text-lg font-bold">前端面试宝</span>
-      </Link>
+      <div className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/logo.svg" alt="logo" width={28} height={28} />
+          <span className="text-lg font-bold">前端面试宝</span>
+        </Link>
+        {isAdmin(user) && (
+          <Link href="/studio">
+            <Button variant="ghost">后台</Button>
+          </Link>
+        )}
+      </div>
       <nav>
         <ul className="flex items-center gap-1">
           <li>
@@ -30,11 +41,15 @@ export default function Header() {
             </Link>
           </li>
           <ClerkLoading>
-            <Loader className="animate-spin" />
+            <div className="flex items-center justify-center w-[60px]">
+              <Loader className="animate-spin" />
+            </div>
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>
-              <UserButton />
+              <div className="flex items-center justify-center w-[60px]">
+                <UserButton />
+              </div>
             </SignedIn>
             <SignedOut>
               <Link href="/sign-in">
