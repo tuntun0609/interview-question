@@ -1,9 +1,12 @@
-'use client'
-
 import { ByteEditor } from '@/components/byte-editor'
 import { Button } from '@/components/ui/button'
 
-const StudioPage = () => {
+const StudioPage = async ({ params }: { params: { slug: string } }) => {
+  if (params.slug) {
+    console.log(params.slug)
+    // const questionDetail = await getQuestionDetail(params.slug)
+  }
+
   return (
     <div className="h-[calc(100vh-64px)]">
       <div className="h-12 flex items-center justify-between border-b px-4">
