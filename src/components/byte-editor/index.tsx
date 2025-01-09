@@ -6,7 +6,7 @@ import highlight from '@bytemd/plugin-highlight-ssr'
 import frontmatter from '@bytemd/plugin-frontmatter'
 import math from '@bytemd/plugin-math-ssr'
 import mediumZoom from '@bytemd/plugin-medium-zoom'
-import { useState } from 'react'
+
 import 'bytemd/dist/index.css'
 
 import styles from './index.module.scss'
@@ -15,6 +15,7 @@ import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 import zhCN from 'bytemd/locales/zh_Hans.json'
 import codeCopy from './plugin/copy-btn'
+import { useMergedState } from '@/lib/hook/use-merged-state'
 
 const plugins = [
   gfm(),
@@ -25,8 +26,13 @@ const plugins = [
   codeCopy(),
 ]
 
-export const ByteEditor = () => {
-  const [value, setValue] = useState('')
+export const ByteEditor = (props: {
+  value: string
+  onChange: (value: string) => void
+}) => {
+  const [value, setValue] = useMergedState(props.value, {
+    onChange: props.onChange,
+  })
 
   return (
     <div className={styles.editor}>

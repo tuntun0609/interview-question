@@ -23,7 +23,7 @@ export default async function Header() {
           <span className="text-lg font-bold">前端面试宝</span>
         </Link>
         {isAdmin(user) && (
-          <Link href="/studio">
+          <Link href="/dashboard/editor">
             <Button variant="ghost">后台</Button>
           </Link>
         )}

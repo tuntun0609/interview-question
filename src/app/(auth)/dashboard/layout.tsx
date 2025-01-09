@@ -8,7 +8,7 @@ export default async function DashboardLayout({
 }) {
   const user = await currentUser()
 
-  if (!user || !isAdmin(user))
+  if (!isAdmin(user))
     return <div>You are not authorized to access this page</div>
 
   return children

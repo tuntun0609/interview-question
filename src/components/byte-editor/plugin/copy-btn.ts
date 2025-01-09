@@ -36,7 +36,6 @@ export default function codeCopy(): BytemdPlugin {
   return {
     rehype: (processor) =>
       processor.use(() => (tree: any) => {
-        console.log(tree)
         visit(tree, 'element', (node) => {
           if (node.tagName === 'pre') {
             const codeNode = node.children.find(

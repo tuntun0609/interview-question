@@ -4,6 +4,7 @@ import { zhCN } from '@clerk/localizations'
 import './globals.css'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: '前端面试宝典',
@@ -24,6 +25,7 @@ export default function RootLayout({
             <main className="min-h-[calc(100vh-64px)]">{children}</main>
             <Footer />
           </div>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
