@@ -1,7 +1,12 @@
 import { db } from '@/db'
 import { Editor } from './editor-cmp'
+import { Suspense } from 'react'
 
-const StudioPage = async ({ params }: { params: { slug: string } }) => {
+const StudioPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) => {
   const { slug } = await params
   let initValue: { title: string; content: string } | undefined = undefined
   if (slug) {
@@ -18,7 +23,9 @@ const StudioPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="h-[calc(100vh-64px)]">
-      <Editor initValue={initValue} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Editor initValue={initValue} />
+      </Suspense>
     </div>
   )
 }

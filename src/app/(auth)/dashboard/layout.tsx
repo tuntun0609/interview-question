@@ -11,5 +11,5 @@ export default async function DashboardLayout({
   if (!isAdmin(user))
     return <div>You are not authorized to access this page</div>
 
-  return children
+  return <div>{children}</div>
 }

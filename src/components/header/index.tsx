@@ -11,19 +11,26 @@ import {
 } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
 import { isAdmin } from '@/lib/auth/is-admin'
+import ThemeToggle from '../theme/theme-toggle'
 
 export default async function Header() {
   const user = await currentUser()
 
   return (
-    <header className="flex sticky top-0 z-50 bg-background items-center justify-between h-16 px-4 border-b border-gray-200">
+    <header className="flex sticky top-0 z-50 bg-background items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-800">
       <div className="flex items-center gap-4">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="logo" width={28} height={28} />
+          <Image
+            className="w-[28px] h-[28px] object-contain"
+            src="/logo.svg"
+            alt="logo"
+            width={28}
+            height={28}
+          />
           <span className="text-lg font-bold">前端面试宝</span>
         </Link>
         {isAdmin(user) && (
-          <Link href="/dashboard/editor">
+          <Link href="/dashboard">
             <Button variant="ghost">后台</Button>
           </Link>
         )}
@@ -39,6 +46,9 @@ export default async function Header() {
             <Link href="/question">
               <Button variant="ghost">题目列表</Button>
             </Link>
+          </li>
+          <li>
+            <ThemeToggle />
           </li>
           <ClerkLoading>
             <div className="flex items-center justify-center w-[60px]">

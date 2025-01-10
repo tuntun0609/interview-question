@@ -1,16 +1,29 @@
 import { db } from '@/db'
 import { postsTable } from '@/db/schema'
+import { SavePostRequest } from '@/type/post'
+import { eq } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
-  const { email, title, content } = await req.json()
+  const { email, title, content, id } = (await req.json()) as SavePostRequest
 
   try {
-    await db.insert(postsTable).values({
-      userEmail: email,
-      title,
-      content,
-    })
+    if (id) {
+      await db
+        .update(postsTable)
+        .set({
+          title,
+          content,
+          updatedAt: new Date(),
+        })
+        .where(eq(postsTable.id, Number(id)))
+    } else {
+      await db.insert(postsTable).values({
+        userEmail: email,
+        title,
+        content,
+      })
+    }
     return NextResponse.json(
       { message: 'Post saved successfully', code: 200 },
       { status: 200 }

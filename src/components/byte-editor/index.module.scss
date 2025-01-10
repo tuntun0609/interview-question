@@ -1,5 +1,5 @@
 .editor {
-  @apply h-full;
+  @apply h-[calc(100%_-_3rem)];
 
   ol {
     list-style-type: decimal;

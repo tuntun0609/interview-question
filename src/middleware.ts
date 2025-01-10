@@ -3,8 +3,10 @@ import { NextResponse } from 'next/server'
 
 const isProtectedRoute = createRouteMatcher(['/dashboard(.*)'])
 
+const isProtectedApiRoute = createRouteMatcher(['/api/post/save'])
+
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
+  if (isProtectedRoute(req) || isProtectedApiRoute(req)) {
     const signInUrl = new URL(`/sign-in`, req.url)
     await auth.protect({
       // `unauthenticatedUrl` is needed to avoid error: "Unable to find `next-intl` locale because the middleware didn't run on this request"

@@ -2,9 +2,10 @@
 
 import { ByteEditor } from '@/components/byte-editor'
 import { Button } from '@/components/ui/button'
+import { SavePostRequest } from '@/type/post'
 import { useUser } from '@clerk/nextjs'
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 export const Editor = ({
@@ -21,12 +22,33 @@ export const Editor = ({
   const [content, setContent] = useState(initValue?.content || '')
 
   const handleSave = async () => {
-    const email = user?.emailAddresses[0].emailAddress
+    if (!user) {
+      return
+    }
+    const email = user.emailAddresses[0].emailAddress
+
+    const req: SavePostRequest = {
+      email,
+      title,
+      content,
+      id: slug?.[0],
+    }
 
     if (slug) {
       // 更新文章
-      const id = slug[0]
-      console.log(id)
+      try {
+        const res = await fetch('/api/post/save', {
+          method: 'POST',
+          body: JSON.stringify(req),
+        })
+
+        if (!res.ok) {
+          throw new Error('Failed to update post')
+        }
+        toast.success('文章更新成功')
+      } catch {
+        toast.error('更新失败')
+      }
     } else {
       // 创建新文章
       try {
@@ -39,9 +61,9 @@ export const Editor = ({
           throw new Error('Failed to save post')
         }
 
-        toast.success('Event has been created')
+        toast.success('文章创建成功')
       } catch {
-        toast.error('Failed to create event')
+        toast.error('创建文章失败')
       }
     }
   }
