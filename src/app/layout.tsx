@@ -6,6 +6,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme'
+import { TailwindIndicator } from '@/components/tailwind-indicator'
 
 export const metadata: Metadata = {
   title: '前端面试宝典',
@@ -19,17 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider localization={zhCN}>
-      <html lang="en">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <body>
+      <html lang="en" suppressHydrationWarning>
+        <body>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="">
               <Header />
               <main className="min-h-[calc(100vh-64px)]">{children}</main>
               <Footer />
             </div>
             <Toaster />
-          </body>
-        </ThemeProvider>
+            <TailwindIndicator />
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   )

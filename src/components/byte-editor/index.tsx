@@ -6,6 +6,7 @@ import highlight from '@bytemd/plugin-highlight-ssr'
 import frontmatter from '@bytemd/plugin-frontmatter'
 import math from '@bytemd/plugin-math-ssr'
 import mediumZoom from '@bytemd/plugin-medium-zoom'
+import mermaid from '@bytemd/plugin-mermaid'
 
 import 'bytemd/dist/index.css'
 
@@ -14,7 +15,6 @@ import './editor.css'
 import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 import zhCN from 'bytemd/locales/zh_Hans.json'
-import codeCopy from './plugin/copy-btn'
 import { useMergedState } from '@/lib/hook/use-merged-state'
 
 const plugins = [
@@ -23,7 +23,7 @@ const plugins = [
   frontmatter(),
   math(),
   mediumZoom(),
-  codeCopy(),
+  mermaid(),
 ]
 
 export const ByteEditor = (props: {

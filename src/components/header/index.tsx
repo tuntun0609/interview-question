@@ -35,8 +35,8 @@ export default async function Header() {
           </Link>
         )}
       </div>
-      <nav>
-        <ul className="flex items-center gap-1">
+      <nav className="flex items-center gap-1">
+        <ul className="hidden md:flex items-center gap-1">
           <li>
             <Link href="/">
               <Button variant="ghost">主页</Button>
@@ -47,27 +47,26 @@ export default async function Header() {
               <Button variant="ghost">题目列表</Button>
             </Link>
           </li>
-          <li>
-            <ThemeToggle />
-          </li>
-          <ClerkLoading>
-            <div className="flex items-center justify-center w-[60px]">
-              <Loader className="animate-spin" />
-            </div>
-          </ClerkLoading>
-          <ClerkLoaded>
-            <SignedIn>
-              <div className="flex items-center justify-center w-[60px]">
-                <UserButton />
-              </div>
-            </SignedIn>
-            <SignedOut>
-              <Link href="/sign-in">
-                <Button>登录</Button>
-              </Link>
-            </SignedOut>
-          </ClerkLoaded>
         </ul>
+
+        <ThemeToggle />
+        <ClerkLoading>
+          <div className="flex items-center justify-center w-[60px]">
+            <Loader className="animate-spin" />
+          </div>
+        </ClerkLoading>
+        <ClerkLoaded>
+          <SignedIn>
+            <div className="flex items-center justify-center w-[60px]">
+              <UserButton />
+            </div>
+          </SignedIn>
+          <SignedOut>
+            <Link href="/sign-in">
+              <Button>登录</Button>
+            </Link>
+          </SignedOut>
+        </ClerkLoaded>
       </nav>
     </header>
   )
