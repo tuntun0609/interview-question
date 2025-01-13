@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button'
 import { PencilIcon, PlusIcon } from 'lucide-react'
 import Link from 'next/link'
 import DeleteButton from './delete-button'
+import { Badge } from '@/components/ui/badge'
 
 export default async function PostsPage(props: {
   searchParams: Promise<{ page: string }>
@@ -79,7 +80,13 @@ export default async function PostsPage(props: {
                     {post.title}
                   </Link>
                 </TableCell>
-                <TableCell>{post.tags?.join(', ')}</TableCell>
+                <TableCell className="flex gap-2 flex-wrap">
+                  {post.tags?.map((tag) => (
+                    <Badge variant="outline" key={tag}>
+                      {tag}
+                    </Badge>
+                  ))}
+                </TableCell>
                 <TableCell>{post.createdAt?.toLocaleString()}</TableCell>
                 <TableCell>{post.updatedAt?.toLocaleString()}</TableCell>
                 <TableCell className="flex gap-2 justify-end">

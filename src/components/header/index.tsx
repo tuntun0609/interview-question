@@ -43,7 +43,7 @@ export default async function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/question">
+            <Link href="/post">
               <Button variant="ghost">题目列表</Button>
             </Link>
           </li>

@@ -19,8 +19,6 @@ export default async function QuestionDetailPage({
     return notFound()
   }
 
-  console.log(post)
-
   return (
     <div className="p-4 md:p-0 max-w-[600px] mx-auto">
       <h1 className="text-2xl md:text-3xl font-bold mt-4 md:mt-8 pb-4 border-b text-center px-2">

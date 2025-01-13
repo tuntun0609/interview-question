@@ -3,4 +3,5 @@ export interface SavePostRequest {
   title: string
   content: string
   id?: string
+  tags?: string[]
 }

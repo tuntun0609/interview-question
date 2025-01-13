@@ -5,7 +5,8 @@ import { eq } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
-  const { email, title, content, id } = (await req.json()) as SavePostRequest
+  const { email, title, content, id, tags } =
+    (await req.json()) as SavePostRequest
 
   try {
     if (id) {
@@ -15,6 +16,7 @@ export async function POST(req: NextRequest) {
           title,
           content,
           updatedAt: new Date(),
+          tags,
         })
         .where(eq(postsTable.id, Number(id)))
     } else {
@@ -22,6 +24,7 @@ export async function POST(req: NextRequest) {
         userEmail: email,
         title,
         content,
+        tags,
       })
     }
     return NextResponse.json(

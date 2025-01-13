@@ -8,7 +8,13 @@ const StudioPage = async ({
   params: Promise<{ slug: string }>
 }) => {
   const { slug } = await params
-  let initValue: { title: string; content: string } | undefined = undefined
+  let initValue:
+    | {
+        title: string
+        content: string
+        tags?: string[]
+      }
+    | undefined = undefined
   if (slug) {
     const id = slug?.[0]
     if (id) {
@@ -16,7 +22,11 @@ const StudioPage = async ({
         where: (post, { eq }) => eq(post.id, Number(id)),
       })
       if (post) {
-        initValue = { title: post.title, content: post.content }
+        initValue = {
+          title: post.title,
+          content: post.content,
+          tags: post.tags || [],
+        }
       }
     }
   }
