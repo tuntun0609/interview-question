@@ -7,6 +7,7 @@ import Footer from '@/components/footer'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
   title: '前端面试宝典',
@@ -22,6 +23,7 @@ export default function RootLayout({
     <ClerkProvider localization={zhCN}>
       <html lang="en" suppressHydrationWarning>
         <body>
+          <NextTopLoader color="#7c3aed" zIndex={51} />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="">
               <Header />
