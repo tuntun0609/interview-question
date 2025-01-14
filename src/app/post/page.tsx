@@ -1,5 +1,5 @@
-import { Pagination } from '@/components/ui/pagination'
 import ListForm from './component/list-form'
+import List from './component/list'
 
 export default async function QuestionPage(props: {
   searchParams: Promise<{
@@ -8,17 +8,11 @@ export default async function QuestionPage(props: {
   }>
 }) {
   const searchParams = await props.searchParams
-  const { tags = '', page = '1' } = searchParams
-  const tagsArray = tags.split(',')
-  const pageNumber = parseInt(page)
-  const totalPages = 15
 
   return (
     <div className="p-4 md:p-0 max-w-[800px] mx-auto mt-4">
-      <ListForm tags={tagsArray} />
-      <div className="mt-4">
-        <Pagination></Pagination>
-      </div>
+      <ListForm />
+      <List searchParams={searchParams} />
     </div>
   )
 }

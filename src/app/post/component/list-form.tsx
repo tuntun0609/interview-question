@@ -16,23 +16,34 @@ import { tagList } from '@/config'
 import { MultiSelect } from '@/components/ui/multiple-select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 const schema = z.object({
   tags: z.set(z.string()),
 })
 
-export default function ListForm(props: { tags: string[] }) {
+export default function ListForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      tags: new Set(props.tags),
+      tags: new Set(),
     },
   })
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data)
-    router.push(`/post?tags=${Array.from(data.tags).join(',')}`)
+    const searchParams = new URLSearchParams()
+    searchParams.set('tags', Array.from(data.tags).join(','))
+    router.push(`/post?${searchParams.toString()}`)
   }
+
+  useEffect(() => {
+    const tags = searchParams.get('tags')
+    if (tags) {
+      form.setValue('tags', new Set(tags.split(',').filter(Boolean)))
+    }
+  }, [searchParams, form])
 
   return (
     <Card>
@@ -51,6 +62,7 @@ export default function ListForm(props: { tags: string[] }) {
                   <div>
                     <FormControl>
                       <MultiSelect
+                        showCount={3}
                         title="请选择标签"
                         options={tagList.map((tag) => ({
                           label: tag.name,
@@ -65,7 +77,18 @@ export default function ListForm(props: { tags: string[] }) {
                 </FormItem>
               )}
             />
-            <Button type="submit">搜索</Button>
+            <div className="flex gap-2">
+              <Button type="submit">搜索</Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  form.reset()
+                  router.push('/post')
+                }}>
+                重置
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>

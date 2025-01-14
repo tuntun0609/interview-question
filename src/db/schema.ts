@@ -4,8 +4,10 @@ export const postsTable = pgTable('posts', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   title: varchar({ length: 255 }).notNull(),
   content: text().notNull(),
-  userEmail: varchar({ length: 255 }),
-  createdAt: timestamp().defaultNow(),
-  updatedAt: timestamp().defaultNow(),
+  userEmail: varchar({ length: 255 }).notNull(),
+  createdAt: timestamp().defaultNow().notNull(),
+  updatedAt: timestamp().defaultNow().notNull(),
   tags: text().array(),
 })
+
+export type Post = typeof postsTable.$inferSelect
