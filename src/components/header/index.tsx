@@ -36,12 +36,7 @@ export default async function Header() {
         )}
       </div>
       <nav className="flex items-center gap-1">
-        <ul className="hidden md:flex items-center gap-1">
-          <li>
-            <Link href="/">
-              <Button variant="ghost">主页</Button>
-            </Link>
-          </li>
+        <ul className="flex items-center gap-1">
           <li>
             <Link href="/post">
               <Button variant="ghost">题目列表</Button>

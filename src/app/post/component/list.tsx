@@ -28,7 +28,6 @@ export default async function List({
     .filter((item) => tagList.some((tag) => tag.value === item))
 
   let pageNumber = parseInt(page)
-  console.log(pageNumber)
 
   // 获取总数据量
   const totalPosts = await db
