@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider localization={zhCN}>
       <html lang="en" suppressHydrationWarning>
         <body>
-          <NextTopLoader color="#7c3aed" zIndex={51} />
+          <NextTopLoader color="#7c3aed" zIndex={51} showSpinner={false} />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="">
               <Header />
