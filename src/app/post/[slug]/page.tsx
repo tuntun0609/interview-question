@@ -24,7 +24,7 @@ export default async function QuestionDetailPage({
       <h1 className="text-2xl md:text-3xl font-bold mt-4 md:mt-8 pb-4 border-b text-center px-2">
         {post.title}
       </h1>
-      <Preview value={post.content} />
+      <Preview className="mb-4" value={post.content} />
     </div>
   )
 }

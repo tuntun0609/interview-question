@@ -69,7 +69,7 @@ export const Editor = ({
       try {
         const res = await fetch('/api/post/save', {
           method: 'POST',
-          body: JSON.stringify({ email, title, content }),
+          body: JSON.stringify(req),
         })
 
         if (!res.ok) {

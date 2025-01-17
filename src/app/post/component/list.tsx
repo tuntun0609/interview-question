@@ -66,7 +66,7 @@ export default async function List({
 
   return (
     <div>
-      <div className="mt-4 space-y-4">
+      <div className="mt-8 flex flex-col gap-4">
         {showQuestionList.map((item) => (
           <ListItem key={item.id} post={item} />
         ))}

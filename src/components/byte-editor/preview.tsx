@@ -13,6 +13,7 @@ import './editor.css'
 import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 import 'bytemd/dist/index.css'
+import { cn } from '@/lib/utils'
 
 const plugins = [
   gfm(),
@@ -23,9 +24,9 @@ const plugins = [
   codeCopy(),
 ]
 
-export const Preview = (props: { value: string }) => {
+export const Preview = (props: { value: string; className?: string }) => {
   return (
-    <div className={styles.editor}>
+    <div className={cn(styles.editor, props.className)}>
       <Viewer value={props.value} plugins={plugins} />
     </div>
   )
