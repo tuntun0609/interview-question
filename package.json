@@ -7,7 +7,7 @@
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --max-warnings=0",
     "lint:fix": "next lint --fix",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
@@ -90,11 +90,6 @@
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5"
-  },
-  "lint-staged": {
-    "src/**/*.{js,ts,jsx,tsx}": [
-      "eslint --max-warnings=0"
-    ]
   },
   "pnpm": {
     "overrides": {
