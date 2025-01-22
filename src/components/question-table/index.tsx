@@ -1,3 +1,6 @@
+import dayjs from 'dayjs'
+import Link from 'next/link'
+
 import {
   Table,
   TableBody,
@@ -7,8 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Question } from 'contentlayer/generated'
-import dayjs from 'dayjs'
-import Link from 'next/link'
+
 import { Badge } from '../ui/badge'
 
 export default function QuestionTable({

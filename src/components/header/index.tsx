@@ -1,7 +1,3 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from '../ui/button'
-import { Loader } from 'lucide-react'
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -10,8 +6,14 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
+import { Loader } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+
 import { isAdmin } from '@/lib/auth/is-admin'
+
 import ThemeToggle from '../theme/theme-toggle'
+import { Button } from '../ui/button'
 
 export default async function Header() {
   const user = await currentUser()

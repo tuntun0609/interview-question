@@ -1,13 +1,15 @@
-import type { Metadata } from 'next'
-import { ClerkProvider } from '@clerk/nextjs'
 import { zhCN } from '@clerk/localizations'
-import './globals.css'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-import { Toaster } from '@/components/ui/sonner'
-import { ThemeProvider } from '@/components/theme'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { ClerkProvider } from '@clerk/nextjs'
 import NextTopLoader from 'nextjs-toploader'
+
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { ThemeProvider } from '@/components/theme'
+import { Toaster } from '@/components/ui/sonner'
+
+import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: '前端面试宝典',

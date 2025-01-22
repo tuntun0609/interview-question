@@ -1,9 +1,11 @@
-import { cn } from '@/lib/utils'
-
-import type { MDXComponents as MDXComponentsType } from 'mdx/types'
-import CustomLink from './custom-link'
 import { PhotoView } from 'react-photo-view'
 import NextImage from 'next/image'
+
+import { cn } from '@/lib/utils'
+
+import CustomLink from './custom-link'
+
+import type { MDXComponents as MDXComponentsType } from 'mdx/types'
 
 const MDXComponents: MDXComponentsType = {
   h1: (props) => (

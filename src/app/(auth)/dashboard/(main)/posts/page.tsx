@@ -1,3 +1,8 @@
+import { PlusIcon } from 'lucide-react'
+import Link from 'next/link'
+
+import QuestionTable from '@/components/question-table'
+import { Button } from '@/components/ui/button'
 import {
   Pagination,
   PaginationContent,
@@ -7,11 +12,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
-import { Button } from '@/components/ui/button'
-import { PlusIcon } from 'lucide-react'
-import Link from 'next/link'
 import { allQuestions, Question } from 'contentlayer/generated'
-import QuestionTable from '@/components/question-table'
 
 const pageSize = 20
 

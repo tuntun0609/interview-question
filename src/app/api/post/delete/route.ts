@@ -1,7 +1,8 @@
-import { db } from '@/db'
-import { postsTable } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { db } from '@/db'
+import { postsTable } from '@/db/schema'
 
 export async function DELETE(req: NextRequest) {
   const postId = (await req.json()) as { id: number }

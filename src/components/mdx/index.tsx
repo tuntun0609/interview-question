@@ -1,8 +1,8 @@
 'use client'
 
-import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { PhotoProvider } from 'react-photo-view'
 import { RotateCw, ZoomIn, ZoomOut } from 'lucide-react'
+import { useMDXComponent } from 'next-contentlayer2/hooks'
 
 import MDXComponents from './mdx-components'
 

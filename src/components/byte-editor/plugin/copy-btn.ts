@@ -1,5 +1,6 @@
-import type { BytemdPlugin } from 'bytemd'
 import { visit } from 'unist-util-visit'
+
+import type { BytemdPlugin } from 'bytemd'
 
 // 复制的方法,直接使用浏览器的 API 即可实现复制
 const copyToClipboard = async (text: string) => {

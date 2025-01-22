@@ -1,7 +1,8 @@
-import { SidebarProvider } from '@/components/ui/sidebar'
-import { DashboardSidebar } from '@/components/dashboard-sidebar'
 import { CSSProperties } from 'react'
+
+import { DashboardSidebar } from '@/components/dashboard-sidebar'
 import { SidebarTrigger } from '@/components/sidebar-trigger'
+import { SidebarProvider } from '@/components/ui/sidebar'
 
 export default function MainLayout({
   children,

@@ -1,6 +1,8 @@
-import { db } from '@/db'
-import { Editor } from './editor-cmp'
 import { Suspense } from 'react'
+
+import { db } from '@/db'
+
+import { Editor } from './editor-cmp'
 
 const StudioPage = async ({
   params,

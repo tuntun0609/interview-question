@@ -1,9 +1,10 @@
-import { tagList } from '@/config'
+import { BookOpen, Zap, Target, Users } from 'lucide-react'
 import Link from 'next/link'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
-import { BookOpen, Zap, Target, Users } from 'lucide-react'
+import { tagList } from '@/config'
 
 export default function Home() {
   return (

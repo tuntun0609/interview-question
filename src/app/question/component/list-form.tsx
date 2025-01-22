@@ -1,9 +1,13 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter, useSearchParams  } from 'next/navigation'
+import { z } from 'zod'
+
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -12,12 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { tagList } from '@/config'
 import { MultiSelect } from '@/components/ui/multiple-select'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { tagList } from '@/config'
 const schema = z.object({
   tags: z.set(z.string()),
 })

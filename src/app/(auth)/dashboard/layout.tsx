@@ -1,5 +1,6 @@
-import { isAdmin } from '@/lib/auth/is-admin'
 import { currentUser } from '@clerk/nextjs/server'
+
+import { isAdmin } from '@/lib/auth/is-admin'
 
 export default async function DashboardLayout({
   children,

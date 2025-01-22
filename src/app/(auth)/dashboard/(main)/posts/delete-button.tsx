@@ -1,9 +1,10 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { TrashIcon } from 'lucide-react'
-import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+
+import { Button } from '@/components/ui/button'
 
 export default function DeleteButton({ postId }: { postId: number }) {
   const router = useRouter()

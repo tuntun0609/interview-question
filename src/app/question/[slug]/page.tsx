@@ -1,12 +1,13 @@
-import { MDXContent } from '@/components/mdx'
-import { allQuestions } from 'contentlayer/generated'
-import { notFound } from 'next/navigation'
 import dayjs from 'dayjs'
-import ScrollTopButton from '@/components/scroll-to-top'
-import { cn } from '@/lib/utils'
 import { Pencil } from 'lucide-react'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
+
+import { MDXContent } from '@/components/mdx'
+import ScrollTopButton from '@/components/scroll-to-top'
 import { siteConfig } from '@/config'
+import { cn } from '@/lib/utils'
+import { allQuestions } from 'contentlayer/generated'
 
 export default async function QuestionDetailPage({
   params,

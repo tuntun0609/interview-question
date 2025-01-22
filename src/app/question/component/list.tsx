@@ -1,14 +1,12 @@
-import { Pagination } from '@/components/ui/pagination'
-import {
+import QuestionTable from '@/components/question-table'
+import { Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination'
+  PaginationPrevious } from '@/components/ui/pagination'
 import { tagList } from '@/config'
 import { allQuestions, Question } from 'contentlayer/generated'
-import QuestionTable from '@/components/question-table'
 
 const pageSize = 15
 
