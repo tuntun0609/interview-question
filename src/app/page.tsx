@@ -26,7 +26,7 @@ export default function Home() {
 
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild>
-            <Link href="/post">开始学习</Link>
+            <Link href="/question">开始学习</Link>
           </Button>
           <Button variant="ghost" asChild>
             <Link href="#features">

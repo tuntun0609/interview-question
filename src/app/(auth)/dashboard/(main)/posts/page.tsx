@@ -1,15 +1,4 @@
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { db } from '@/db'
-import { postsTable } from '@/db/schema'
-import { desc, sql } from 'drizzle-orm'
-import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
@@ -19,34 +8,50 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
-import { PencilIcon, PlusIcon } from 'lucide-react'
+import { PlusIcon } from 'lucide-react'
 import Link from 'next/link'
-import DeleteButton from './delete-button'
-import { Badge } from '@/components/ui/badge'
+import { allQuestions, Question } from 'contentlayer/generated'
+import QuestionTable from '@/components/question-table'
+
+const pageSize = 20
 
 export default async function PostsPage(props: {
   searchParams: Promise<{ page: string }>
 }) {
   const searchParams = await props.searchParams
-  const page = Number(searchParams.page ?? 1)
+  let page = Number(searchParams.page ?? 1)
 
-  // 每页显示的数量
-  const pageSize = 10
+  const tagsArray: string[] = []
 
-  // 分页查询文章列表
-  const postsList = await db
-    .select()
-    .from(postsTable)
-    .limit(pageSize)
-    .offset((page - 1) * pageSize)
-    .orderBy(desc(postsTable.createdAt))
+  const allFilterQuestions = allQuestions.filter((item) => {
+    if (tagsArray.length > 0) {
+      return item.tags?.some((tag) => tagsArray.includes(tag))
+    }
+    return true
+  })
 
-  // 获取总数
-  const [{ count }] = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(postsTable)
+  // 获取总数据量
+  const totalQuestions = allFilterQuestions.length
 
-  const totalPages = Math.ceil(count / pageSize)
+  // 计算总页数
+  const totalPageCount = Math.ceil(totalQuestions / pageSize)
+
+  // 处理无数据的情况
+  if (totalPageCount === 0) {
+    return <div className="mt-4 text-center text-gray-500">暂无数据</div>
+  }
+
+  if (page < 1) {
+    page = 1
+  } else if (page > totalPageCount) {
+    page = totalPageCount
+  }
+
+  // 根据分页和标签获取题目列表
+  const showQuestionList: Question[] = allFilterQuestions.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  )
 
   return (
     <div className="p-4">
@@ -60,48 +65,7 @@ export default async function PostsPage(props: {
         </Link>
       </div>
       <div className="border rounded-md">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">文章ID</TableHead>
-              <TableHead>标题</TableHead>
-              <TableHead>标签</TableHead>
-              <TableHead>创建时间</TableHead>
-              <TableHead>更新时间</TableHead>
-              <TableHead className="text-right">操作</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {postsList.map((post) => (
-              <TableRow key={post.id}>
-                <TableCell className="font-medium">{post.id}</TableCell>
-                <TableCell>
-                  <Link className="text-purple-400" href={`/post/${post.id}`}>
-                    {post.title}
-                  </Link>
-                </TableCell>
-                <TableCell className="flex gap-2 flex-wrap">
-                  {post.tags?.map((tag) => (
-                    <Badge variant="outline" key={tag}>
-                      {tag}
-                    </Badge>
-                  ))}
-                </TableCell>
-                <TableCell>{post.createdAt?.toLocaleString()}</TableCell>
-                <TableCell>{post.updatedAt?.toLocaleString()}</TableCell>
-                <TableCell className="flex gap-2 justify-end">
-                  <Link href={`/dashboard/editor/${post.id}`}>
-                    <Button size="sm" variant="outline">
-                      <PencilIcon className="w-4 h-4" />
-                      编辑
-                    </Button>
-                  </Link>
-                  <DeleteButton postId={post.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <QuestionTable questionList={showQuestionList} />
       </div>
       <div className="flex justify-center items-center mt-4">
         <Pagination>
@@ -145,7 +109,7 @@ export default async function PostsPage(props: {
             </PaginationItem>
 
             {/* 当前页的后一页 */}
-            {page < totalPages && (
+            {page < totalPageCount && (
               <PaginationItem>
                 <PaginationLink href={`?page=${page + 1}`}>
                   {page + 1}
@@ -154,27 +118,29 @@ export default async function PostsPage(props: {
             )}
 
             {/* 省略号 */}
-            {page < totalPages - 2 && (
+            {page < totalPageCount - 2 && (
               <PaginationItem>
                 <PaginationEllipsis />
               </PaginationItem>
             )}
 
             {/* 最后一页 */}
-            {page < totalPages - 1 && (
+            {page < totalPageCount - 1 && (
               <PaginationItem>
-                <PaginationLink href={`?page=${totalPages}`}>
-                  {totalPages}
+                <PaginationLink href={`?page=${totalPageCount}`}>
+                  {totalPageCount}
                 </PaginationLink>
               </PaginationItem>
             )}
 
             <PaginationItem>
               <PaginationNext
-                href={`?page=${page < totalPages ? page + 1 : totalPages}`}
-                aria-disabled={page >= totalPages}
+                href={`?page=${
+                  page < totalPageCount ? page + 1 : totalPageCount
+                }`}
+                aria-disabled={page >= totalPageCount}
                 className={
-                  page >= totalPages ? 'pointer-events-none opacity-50' : ''
+                  page >= totalPageCount ? 'pointer-events-none opacity-50' : ''
                 }
               />
             </PaginationItem>

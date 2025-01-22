@@ -35,7 +35,12 @@ export default function ListForm() {
   const onSubmit = (data: z.infer<typeof schema>) => {
     const searchParams = new URLSearchParams()
     searchParams.set('tags', Array.from(data.tags).join(','))
-    router.push(`/post?${searchParams.toString()}`)
+    router.push(`?${searchParams.toString()}`)
+  }
+
+  const onReset = () => {
+    form.reset()
+    router.push('/question')
   }
 
   useEffect(() => {
@@ -79,13 +84,7 @@ export default function ListForm() {
             />
             <div className="flex gap-2">
               <Button type="submit">搜索</Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  form.reset()
-                  router.push('/post')
-                }}>
+              <Button type="button" variant="outline" onClick={onReset}>
                 重置
               </Button>
             </div>
