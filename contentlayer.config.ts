@@ -1,12 +1,13 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files'
-import remarkMath from 'remark-math'
-import remarkGfm from 'remark-gfm'
 import { remarkImgToJsx } from 'pliny/mdx-plugins/index.js'
-import remarkGithubAlerts from 'remark-github-alerts'
-import rehypeKatex from 'rehype-katex'
-import rehypeSlug from 'rehype-slug'
-import rehypePrettyCode from 'rehype-pretty-code'
 import readingTime from 'reading-time'
+import rehypeKatex from 'rehype-katex'
+import { default as rehypePrettyCode } from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
+import remarkGithubAlerts from 'remark-github-alerts'
+import remarkMath from 'remark-math'
+
 import { formatDuration } from '@/lib/utils'
 
 export const Question = defineDocumentType(() => ({
