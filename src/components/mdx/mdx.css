@@ -73,8 +73,7 @@ pre code {
 }
 
 code {
-  background: #f0f1f2;
-  @apply px-1 py-1 text-sm rounded-md;
+  @apply px-1 py-1 text-sm rounded-md bg-[#f0f1f2] dark:bg-[#3b3f44] text-gray-800 dark:text-gray-300;
 }
 
 .content-header-link {
