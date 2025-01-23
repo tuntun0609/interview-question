@@ -1,5 +1,8 @@
 import { clsx, type ClassValue } from 'clsx'
+import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
+
+import { Question } from 'contentlayer/generated'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -34,6 +37,9 @@ export const formatDuration = (ms: number) => {
 
   return formattedTime
 }
+
+export const sortQuestions = (questions: Question[]) =>
+  questions.sort((a, b) => (dayjs(b.date).isAfter(dayjs(a.date)) ? 1 : -1))
 
 export const getSystemTheme = () => {
   const media = window.matchMedia('(prefers-color-scheme: dark)')

@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter, useSearchParams  } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -11,15 +11,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { MultiSelect } from '@/components/ui/multiple-select'
 import { tagList } from '@/config'
 const schema = z.object({
   tags: z.set(z.string()),
+  title: z.string(),
 })
 
 export default function ListForm() {
@@ -29,12 +32,14 @@ export default function ListForm() {
     resolver: zodResolver(schema),
     defaultValues: {
       tags: new Set(),
+      title: '',
     },
   })
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     const searchParams = new URLSearchParams()
     searchParams.set('tags', Array.from(data.tags).join(','))
+    searchParams.set('title', data.title)
     router.push(`?${searchParams.toString()}`)
   }
 
@@ -47,6 +52,11 @@ export default function ListForm() {
     const tags = searchParams.get('tags')
     if (tags) {
       form.setValue('tags', new Set(tags.split(',').filter(Boolean)))
+    }
+
+    const title = searchParams.get('title')
+    if (title) {
+      form.setValue('title', title)
     }
   }, [searchParams, form])
 
@@ -69,7 +79,7 @@ export default function ListForm() {
                       <MultiSelect
                         showCount={3}
                         title="请选择标签"
-                        options={tagList.map((tag) => ({
+                        options={tagList.map(tag => ({
                           label: tag.name,
                           value: tag.value,
                         }))}
@@ -79,6 +89,23 @@ export default function ListForm() {
                     </FormControl>
                   </div>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>标题</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="请输入标题"
+                      className="focus-visible:ring-0 focus-visible:ring-offset-0"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>请输入标题，支持模糊搜索</FormDescription>
                 </FormItem>
               )}
             />

@@ -4,11 +4,7 @@ import { Laptop, Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
 export const getSystemTheme = () => {
@@ -72,7 +68,7 @@ export default function ThemeToggle() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex w-[150px] flex-col gap-1 p-1" align="end">
-        {themeConfig.map((config) => (
+        {themeConfig.map(config => (
           <Button
             key={config.value}
             variant="ghost"
@@ -80,7 +76,8 @@ export default function ThemeToggle() {
               'w-full justify-start gap-2 p-2 pl-4',
               theme === config.value && 'bg-gray-100 dark:bg-gray-800'
             )}
-            onClick={() => onChangeTheme(config.value)}>
+            onClick={() => onChangeTheme(config.value)}
+          >
             {config.icon}
             {config.label}
           </Button>

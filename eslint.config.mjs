@@ -3,7 +3,9 @@ import { fileURLToPath } from 'url'
 
 import { FlatCompat } from '@eslint/eslintrc'
 import tsParser from '@typescript-eslint/parser'
+import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintPluginImportX from 'eslint-plugin-import-x'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -13,9 +15,11 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   eslintPluginImportX.flatConfigs.recommended,
   eslintPluginImportX.flatConfigs.typescript,
+  eslintConfigPrettier,
+  eslintPluginPrettierRecommended,
   {
     files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
     ignores: ['eslint.config.js'],
@@ -79,6 +83,8 @@ const eslintConfig = [
   },
   {
     rules: {
+      'prettier/prettier': 'warn',
+      'prefer-template': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',

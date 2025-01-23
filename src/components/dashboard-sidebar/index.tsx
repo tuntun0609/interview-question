@@ -33,13 +33,13 @@ const items = [
 
 export function DashboardSidebar() {
   return (
-    <Sidebar className="h-[calc(100vh-64px)] top-16">
+    <Sidebar className="top-16 h-[calc(100vh-64px)]">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>后台</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {items.map(item => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>

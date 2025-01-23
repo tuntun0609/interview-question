@@ -16,17 +16,15 @@ import { allQuestions, Question } from 'contentlayer/generated'
 
 const pageSize = 20
 
-export default async function PostsPage(props: {
-  searchParams: Promise<{ page: string }>
-}) {
+export default async function PostsPage(props: { searchParams: Promise<{ page: string }> }) {
   const searchParams = await props.searchParams
   let page = Number(searchParams.page ?? 1)
 
   const tagsArray: string[] = []
 
-  const allFilterQuestions = allQuestions.filter((item) => {
+  const allFilterQuestions = allQuestions.filter(item => {
     if (tagsArray.length > 0) {
-      return item.tags?.some((tag) => tagsArray.includes(tag))
+      return item.tags?.some(tag => tagsArray.includes(tag))
     }
     return true
   })
@@ -56,19 +54,19 @@ export default async function PostsPage(props: {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">文章列表</h2>
         <Link href="/dashboard/editor">
           <Button>
-            <PlusIcon className="w-4 h-4" />
+            <PlusIcon className="h-4 w-4" />
             新增文章
           </Button>
         </Link>
       </div>
-      <div className="border rounded-md">
+      <div className="rounded-md border">
         <QuestionTable questionList={showQuestionList} />
       </div>
-      <div className="flex justify-center items-center mt-4">
+      <div className="mt-4 flex items-center justify-center">
         <Pagination>
           <PaginationContent>
             <PaginationItem>
@@ -96,9 +94,7 @@ export default async function PostsPage(props: {
             {/* 当前页的前一页 */}
             {page > 1 && (
               <PaginationItem>
-                <PaginationLink href={`?page=${page - 1}`}>
-                  {page - 1}
-                </PaginationLink>
+                <PaginationLink href={`?page=${page - 1}`}>{page - 1}</PaginationLink>
               </PaginationItem>
             )}
 
@@ -112,9 +108,7 @@ export default async function PostsPage(props: {
             {/* 当前页的后一页 */}
             {page < totalPageCount && (
               <PaginationItem>
-                <PaginationLink href={`?page=${page + 1}`}>
-                  {page + 1}
-                </PaginationLink>
+                <PaginationLink href={`?page=${page + 1}`}>{page + 1}</PaginationLink>
               </PaginationItem>
             )}
 
@@ -128,21 +122,15 @@ export default async function PostsPage(props: {
             {/* 最后一页 */}
             {page < totalPageCount - 1 && (
               <PaginationItem>
-                <PaginationLink href={`?page=${totalPageCount}`}>
-                  {totalPageCount}
-                </PaginationLink>
+                <PaginationLink href={`?page=${totalPageCount}`}>{totalPageCount}</PaginationLink>
               </PaginationItem>
             )}
 
             <PaginationItem>
               <PaginationNext
-                href={`?page=${
-                  page < totalPageCount ? page + 1 : totalPageCount
-                }`}
+                href={`?page=${page < totalPageCount ? page + 1 : totalPageCount}`}
                 aria-disabled={page >= totalPageCount}
-                className={
-                  page >= totalPageCount ? 'pointer-events-none opacity-50' : ''
-                }
+                className={page >= totalPageCount ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
           </PaginationContent>

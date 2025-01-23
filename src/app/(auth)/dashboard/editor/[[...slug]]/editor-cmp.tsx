@@ -8,11 +8,7 @@ import { toast } from 'sonner'
 import { ByteEditor } from '@/components/byte-editor'
 import { Button } from '@/components/ui/button'
 import { MultiSelect } from '@/components/ui/multiple-select'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { tagList } from '@/config'
 import { SavePostRequest } from '@/type/post'
 
@@ -30,10 +26,7 @@ export const Editor = ({
   const [title, setTitle] = useState(initValue?.title || '')
   const [content, setContent] = useState(initValue?.content || '')
   const [tags, setTags] = useState<Set<string>>(
-    new Set(
-      initValue?.tags?.filter((tag) => tagList.some((t) => t.value === tag)) ||
-        []
-    )
+    new Set(initValue?.tags?.filter(tag => tagList.some(t => t.value === tag)) || [])
   )
 
   const handleSave = async () => {
@@ -86,13 +79,13 @@ export const Editor = ({
 
   return (
     <>
-      <div className="h-12 flex items-center justify-between border-b px-4">
+      <div className="flex h-12 items-center justify-between border-b px-4">
         <input
           type="text"
-          className="w-[400px] h-10 text-xl focus-visible:outline-none"
+          className="h-10 w-[400px] text-xl focus-visible:outline-none"
           placeholder="请输入标题"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={e => setTitle(e.target.value)}
         />
         <div className="flex items-center gap-2">
           <Popover>
@@ -103,10 +96,10 @@ export const Editor = ({
                 </Button>
               </div>
             </PopoverTrigger>
-            <PopoverContent className="p-4 w-[400px]">
+            <PopoverContent className="w-[400px] p-4">
               <MultiSelect
                 className="mb-2"
-                options={tagList.map((tag) => ({
+                options={tagList.map(tag => ({
                   label: tag.name,
                   value: tag.value,
                 }))}

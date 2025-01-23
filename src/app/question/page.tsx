@@ -5,12 +5,13 @@ export default async function QuestionPage(props: {
   searchParams: Promise<{
     tags: string
     page: string
+    title: string
   }>
 }) {
   const searchParams = await props.searchParams
 
   return (
-    <div className="p-4 md:p-0 max-w-[800px] mx-auto mt-4">
+    <div className="mx-auto mt-4 max-w-[800px] p-4 md:p-0">
       <ListForm />
       <List searchParams={searchParams} />
     </div>

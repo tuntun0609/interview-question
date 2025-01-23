@@ -1,4 +1,5 @@
 export * from './tag'
+export * from './difficulty'
 
 export const siteConfig = {
   title: '前端面试题库',

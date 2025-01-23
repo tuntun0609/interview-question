@@ -9,11 +9,12 @@ import { tagList } from '@/config'
 export default function Home() {
   return (
     <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto text-center">
+      <div className="mx-auto max-w-2xl text-center">
         <div className="mb-8 flex justify-center">
           <Badge
             variant="secondary"
-            className="text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/50">
+            className="bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300"
+          >
             🚀 持续更新中
           </Badge>
         </div>
@@ -38,45 +39,26 @@ export default function Home() {
 
         <div className="mt-16 flex justify-center gap-8 text-center">
           <div>
-            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">
-              500+
-            </div>
-            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              精选面试题
-            </div>
+            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">500+</div>
+            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">精选面试题</div>
           </div>
           <div>
-            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">
-              100+
-            </div>
-            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              开发者在学习
-            </div>
+            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">100+</div>
+            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">开发者在学习</div>
           </div>
           <div>
-            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">
-              24h
-            </div>
-            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              实时更新
-            </div>
+            <div className="text-3xl font-semibold text-gray-900 dark:text-gray-50">24h</div>
+            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">实时更新</div>
           </div>
         </div>
 
-        <div
-          id="features"
-          className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div id="features" className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <Card className="border-gray-200 dark:border-gray-800">
             <CardContent className="pt-6">
-              <div className="flex justify-center mb-4">
-                <BookOpen
-                  size={24}
-                  className="w-8 h-8 text-purple-600 dark:text-purple-400"
-                />
+              <div className="mb-4 flex justify-center">
+                <BookOpen size={24} className="h-8 w-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                系统化学习
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">系统化学习</h3>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
                 从基础到高级，循序渐进的学习路径
               </p>
@@ -84,15 +66,10 @@ export default function Home() {
           </Card>
           <Card className="border-gray-200 dark:border-gray-800">
             <CardContent className="pt-6">
-              <div className="flex justify-center mb-4">
-                <Zap
-                  size={24}
-                  className="w-8 h-8 text-purple-600 dark:text-purple-400"
-                />
+              <div className="mb-4 flex justify-center">
+                <Zap size={24} className="h-8 w-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                实时更新
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">实时更新</h3>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
                 紧跟前端技术发展，及时更新面试题库
               </p>
@@ -100,15 +77,10 @@ export default function Home() {
           </Card>
           <Card className="border-gray-200 dark:border-gray-800">
             <CardContent className="pt-6">
-              <div className="flex justify-center mb-4">
-                <Target
-                  size={24}
-                  className="w-8 h-8 text-purple-600 dark:text-purple-400"
-                />
+              <div className="mb-4 flex justify-center">
+                <Target size={24} className="h-8 w-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                针对性强
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">针对性强</h3>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
                 覆盖各大厂面试重点，直击面试痛点
               </p>
@@ -116,37 +88,30 @@ export default function Home() {
           </Card>
           <Card className="border-gray-200 dark:border-gray-800">
             <CardContent className="pt-6">
-              <div className="flex justify-center mb-4">
-                <Users
-                  size={24}
-                  className="w-8 h-8 text-purple-600 dark:text-purple-400"
-                />
+              <div className="mb-4 flex justify-center">
+                <Users size={24} className="h-8 w-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                社区互动
-              </h3>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                分享经验，交流解法，共同进步
-              </p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">社区互动</h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">分享经验，交流解法，共同进步</p>
             </CardContent>
           </Card>
         </div>
 
         <Card className="mt-20 border-gray-200 dark:border-gray-800">
           <CardHeader>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-              热门标签
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50">热门标签🔥</h2>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {tagList.slice(0, 6).map((tag) => (
-                <Badge
-                  key={tag.name}
-                  variant="secondary"
-                  className="p-4 justify-center text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                  {tag.name}
-                </Badge>
+              {tagList.slice(0, 6).map(tag => (
+                <Link key={tag.name} href={`/question?tags=${tag.value}`}>
+                  <Badge
+                    variant="secondary"
+                    className="w-full cursor-pointer justify-center p-4 text-sm transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    {tag.name}
+                  </Badge>
+                </Link>
               ))}
             </div>
           </CardContent>

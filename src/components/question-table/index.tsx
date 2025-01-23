@@ -9,15 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { difficultyList, tagList } from '@/config'
 import { Question } from 'contentlayer/generated'
 
 import { Badge } from '../ui/badge'
 
-export default function QuestionTable({
-  questionList,
-}: {
-  questionList: Question[]
-}) {
+export default function QuestionTable({ questionList }: { questionList: Question[] }) {
   return (
     <Table>
       <TableHeader>
@@ -29,21 +26,21 @@ export default function QuestionTable({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {questionList.map((item) => (
+        {questionList.map(item => (
           <TableRow key={item.slug}>
             <TableCell>
               <Link className="text-purple-400" href={`/question/${item.slug}`}>
                 {item.title}
               </Link>
             </TableCell>
-            <TableCell className="flex gap-2 flex-wrap">
-              {item.tags?.map((tag) => (
+            <TableCell className="flex flex-wrap gap-2">
+              {item.tags?.map(tag => (
                 <Badge variant="outline" key={tag}>
-                  {tag}
+                  {tagList.find(t => t.value === tag)?.name}
                 </Badge>
               ))}
             </TableCell>
-            <TableCell>{item.difficulty}</TableCell>
+            <TableCell>{difficultyList.find(d => d.value === item.difficulty)?.name}</TableCell>
             <TableCell>{dayjs(item.date).format('YYYY-MM-DD')}</TableCell>
           </TableRow>
         ))}

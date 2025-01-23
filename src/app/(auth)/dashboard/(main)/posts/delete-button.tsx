@@ -25,7 +25,7 @@ export default function DeleteButton({ postId }: { postId: number }) {
 
   return (
     <Button size="sm" variant="outline" onClick={handleDelete}>
-      <TrashIcon className="w-4 h-4" />
+      <TrashIcon className="h-4 w-4" />
       删除
     </Button>
   )

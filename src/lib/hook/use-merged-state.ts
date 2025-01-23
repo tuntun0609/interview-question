@@ -14,9 +14,7 @@ export function useMergedState<T>(
       return value
     }
     if (defaultValue !== undefined) {
-      return typeof defaultValue === 'function'
-        ? (defaultValue as any)()
-        : defaultValue
+      return typeof defaultValue === 'function' ? (defaultValue as any)() : defaultValue
     }
     return typeof defaultStateValue === 'function'
       ? (defaultStateValue as any)()

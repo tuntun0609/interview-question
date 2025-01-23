@@ -29,14 +29,14 @@ const ScrollTopButton = () => {
     <div
       className={cn(
         'fixed bottom-20 right-8 hidden flex-col gap-3 transition-opacity duration-150 md:flex',
-        show
-          ? 'md:opacity-100'
-          : 'pointer-events-none cursor-default md:opacity-0'
-      )}>
+        show ? 'md:opacity-100' : 'pointer-events-none cursor-default md:opacity-0'
+      )}
+    >
       <button
         aria-label="Scroll To Top"
         onClick={handleScrollTop}
-        className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600">
+        className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
+      >
         <ArrowUp />
       </button>
     </div>

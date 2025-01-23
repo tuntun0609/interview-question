@@ -19,19 +19,9 @@ import './editor.css'
 import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 
-const plugins = [
-  gfm(),
-  highlight(),
-  frontmatter(),
-  math(),
-  mediumZoom(),
-  mermaid(),
-]
+const plugins = [gfm(), highlight(), frontmatter(), math(), mediumZoom(), mermaid()]
 
-export const ByteEditor = (props: {
-  value: string
-  onChange: (value: string) => void
-}) => {
+export const ByteEditor = (props: { value: string; onChange: (value: string) => void }) => {
   const [value, setValue] = useMergedState(props.value, {
     onChange: props.onChange,
   })
@@ -41,7 +31,7 @@ export const ByteEditor = (props: {
       <Editor
         value={value}
         plugins={plugins}
-        onChange={(v) => {
+        onChange={v => {
           setValue(v)
         }}
         locale={zhCN}

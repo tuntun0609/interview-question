@@ -35,13 +35,11 @@ const successTip = `<span class="text-sm">复制成功</span>`
 
 export default function codeCopy(): BytemdPlugin {
   return {
-    rehype: (processor) =>
+    rehype: processor =>
       processor.use(() => (tree: any) => {
-        visit(tree, 'element', (node) => {
+        visit(tree, 'element', node => {
           if (node.tagName === 'pre') {
-            const codeNode = node.children.find(
-              (child: any) => child.tagName === 'code'
-            )
+            const codeNode = node.children.find((child: any) => child.tagName === 'code')
             const language =
               codeNode?.properties?.className
                 ?.find((cls: any) => cls.startsWith('language-'))
@@ -116,14 +114,10 @@ export default function codeCopy(): BytemdPlugin {
       }),
 
     viewerEffect({ markdownBody }) {
-      const copyButtons = markdownBody.querySelectorAll(
-        '.code-block-extension-copyCodeBtn'
-      )
-      const foldButtons = markdownBody.querySelectorAll(
-        '.code-block-extension-foldBtn'
-      )
+      const copyButtons = markdownBody.querySelectorAll('.code-block-extension-copyCodeBtn')
+      const foldButtons = markdownBody.querySelectorAll('.code-block-extension-foldBtn')
 
-      copyButtons.forEach((button) => {
+      copyButtons.forEach(button => {
         button.addEventListener('click', () => {
           const pre = button.closest('pre')
           const code = pre?.querySelector('code')?.textContent || ''
@@ -138,7 +132,7 @@ export default function codeCopy(): BytemdPlugin {
       })
 
       // 处理折叠按钮的点击事件，实现旋转
-      foldButtons.forEach((foldButton) => {
+      foldButtons.forEach(foldButton => {
         foldButton.addEventListener('click', () => {
           foldButton.classList.toggle('code-block-extension-fold') // 切换折叠类名
           // 找到最近的 pre 标签
@@ -159,9 +153,7 @@ export default function codeCopy(): BytemdPlugin {
           }
 
           // 在 pre 标签下找到 code-block-extension-header
-          const headerElement = pre?.querySelector(
-            '.code-block-extension-header'
-          )
+          const headerElement = pre?.querySelector('.code-block-extension-header')
 
           // 切换 code-block-extension-header 的类名
           if (headerElement) {

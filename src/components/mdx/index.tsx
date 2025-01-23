@@ -21,7 +21,7 @@ export const MDXContent = ({ code }: { code: string }) => {
       speed={() => 300}
       toolbarRender={({ onScale, scale, onRotate, rotate }) => {
         return (
-          <div className="fixed bottom-8 left-[50%] flex -translate-x-1/2 gap-4 rounded-full bg-black/50 backdrop-blur-sm px-4 py-3">
+          <div className="fixed bottom-8 left-[50%] flex -translate-x-1/2 gap-4 rounded-full bg-black/50 px-4 py-3 backdrop-blur-sm">
             <ZoomIn
               className="cursor-pointer text-white/90 hover:text-white/80"
               onClick={() => onScale(scale + 1)}
@@ -36,7 +36,8 @@ export const MDXContent = ({ code }: { code: string }) => {
             />
           </div>
         )
-      }}>
+      }}
+    >
       <MDXContent components={MDXComponents} />
     </PhotoProvider>
   )

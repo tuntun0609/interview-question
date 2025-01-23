@@ -17,14 +17,7 @@ import 'highlight.js/styles/atom-one-dark.min.css'
 import 'katex/dist/katex.min.css'
 import 'bytemd/dist/index.css'
 
-const plugins = [
-  gfm(),
-  highlight(),
-  frontmatter(),
-  math(),
-  mediumZoom(),
-  codeCopy(),
-]
+const plugins = [gfm(), highlight(), frontmatter(), math(), mediumZoom(), codeCopy()]
 
 export const Preview = (props: { value: string; className?: string }) => {
   return (

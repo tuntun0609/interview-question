@@ -6,8 +6,7 @@ import { postsTable } from '@/db/schema'
 import { SavePostRequest } from '@/type/post'
 
 export async function POST(req: NextRequest) {
-  const { email, title, content, id, tags } =
-    (await req.json()) as SavePostRequest
+  const { email, title, content, id, tags } = (await req.json()) as SavePostRequest
 
   try {
     if (id) {
@@ -28,10 +27,7 @@ export async function POST(req: NextRequest) {
         tags,
       })
     }
-    return NextResponse.json(
-      { message: 'Post saved successfully', code: 200 },
-      { status: 200 }
-    )
+    return NextResponse.json({ message: 'Post saved successfully', code: 200 }, { status: 200 })
   } catch (error: any) {
     return NextResponse.json(
       { message: `Post saved failed, ${error.message}`, code: 500 },

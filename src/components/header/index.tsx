@@ -1,10 +1,4 @@
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
 import { Loader } from 'lucide-react'
 import Image from 'next/image'
@@ -19,11 +13,11 @@ export default async function Header() {
   const user = await currentUser()
 
   return (
-    <header className="flex sticky top-0 z-50 bg-background items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-800">
+    <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-gray-200 bg-background px-4 dark:border-gray-800">
       <div className="flex items-center gap-4">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            className="w-[28px] h-[28px] object-contain"
+            className="h-[28px] w-[28px] object-contain"
             src="/logo.svg"
             alt="logo"
             width={28}
@@ -40,7 +34,7 @@ export default async function Header() {
       <nav className="flex items-center gap-1">
         <ul className="flex items-center gap-1">
           <li>
-            <Link href="/post">
+            <Link href="/question">
               <Button variant="ghost">题目列表</Button>
             </Link>
           </li>
@@ -48,13 +42,13 @@ export default async function Header() {
 
         <ThemeToggle />
         <ClerkLoading>
-          <div className="flex items-center justify-center w-[60px]">
+          <div className="flex w-[60px] items-center justify-center">
             <Loader className="animate-spin" />
           </div>
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>
-            <div className="flex items-center justify-center w-[60px]">
+            <div className="flex w-[60px] items-center justify-center">
               <UserButton />
             </div>
           </SignedIn>

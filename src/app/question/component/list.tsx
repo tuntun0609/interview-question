@@ -1,11 +1,14 @@
 import QuestionTable from '@/components/question-table'
-import { Pagination,
+import {
+  Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious } from '@/components/ui/pagination'
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { tagList } from '@/config'
+import { sortQuestions } from '@/lib/utils'
 import { allQuestions, Question } from 'contentlayer/generated'
 
 const pageSize = 15
@@ -16,21 +19,25 @@ export default async function List({
   searchParams: {
     tags: string
     page: string
+    title: string
   }
 }) {
-  const { tags = '', page = '1' } = searchParams
-  const tagsArray = tags
-    .split(',')
-    .filter((item) => tagList.some((tag) => tag.value === item))
+  const { tags = '', page = '1', title = '' } = searchParams
+  const tagsArray = tags.split(',').filter(item => tagList.some(tag => tag.value === item))
 
   let pageNumber = parseInt(page)
 
-  const allFilterPosts = allQuestions.filter((item) => {
-    if (tagsArray.length > 0) {
-      return item.tags?.some((tag) => tagsArray.includes(tag))
-    }
-    return true
-  })
+  const allFilterPosts = sortQuestions(
+    allQuestions.filter(item => {
+      if (tagsArray.length > 0) {
+        return item.tags?.some(tag => tagsArray.includes(tag))
+      }
+      if (title) {
+        return item.title.toLowerCase().includes(title.toLowerCase())
+      }
+      return true
+    })
+  )
 
   // 获取总数据量
   const totalPosts = allFilterPosts.length
@@ -58,7 +65,7 @@ export default async function List({
   return (
     <div>
       <div className="mt-8 flex flex-col gap-4">
-        <div className="border rounded-md">
+        <div className="rounded-md border">
           <QuestionTable questionList={showQuestionList} />
         </div>
       </div>
@@ -69,33 +76,26 @@ export default async function List({
               <PaginationPrevious
                 href={`?page=${pageNumber - 1}${tags ? `&tags=${tags}` : ''}`}
                 aria-disabled={pageNumber === 1}
-                className={
-                  pageNumber === 1 ? 'pointer-events-none opacity-50' : ''
-                }
+                className={pageNumber === 1 ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
 
-            {Array.from({ length: totalPageCount }, (_, i) => i + 1).map(
-              (page) => (
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    href={`?page=${page}${tags ? `&tags=${tags}` : ''}`}
-                    isActive={pageNumber === page}>
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              )
-            )}
+            {Array.from({ length: totalPageCount }, (_, i) => i + 1).map(page => (
+              <PaginationItem key={page}>
+                <PaginationLink
+                  href={`?page=${page}${tags ? `&tags=${tags}` : ''}`}
+                  isActive={pageNumber === page}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
             <PaginationItem>
               <PaginationNext
                 href={`?page=${pageNumber + 1}${tags ? `&tags=${tags}` : ''}`}
                 aria-disabled={pageNumber === totalPageCount}
-                className={
-                  pageNumber === totalPageCount
-                    ? 'pointer-events-none opacity-50'
-                    : ''
-                }
+                className={pageNumber === totalPageCount ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
           </PaginationContent>

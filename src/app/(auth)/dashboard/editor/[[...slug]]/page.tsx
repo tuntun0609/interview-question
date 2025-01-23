@@ -4,11 +4,7 @@ import { db } from '@/db'
 
 import { Editor } from './editor-cmp'
 
-const StudioPage = async ({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) => {
+const StudioPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   let initValue:
     | {

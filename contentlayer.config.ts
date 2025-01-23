@@ -7,7 +7,9 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from 'remark-github-alerts'
 import remarkMath from 'remark-math'
+import { visit } from 'unist-util-visit'
 
+import { difficultyList, tagList } from '@/config'
 import { formatDuration } from '@/lib/utils'
 
 export const Question = defineDocumentType(() => ({
@@ -17,15 +19,19 @@ export const Question = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     // 难度, 简单, 中等, 困难
-    difficulty: { type: 'string', required: true },
+    difficulty: {
+      type: 'enum',
+      options: difficultyList.map(item => item.value),
+      required: true,
+    },
     date: { type: 'date', required: true },
     slug: { type: 'string', required: true },
-    tags: { type: 'list', of: { type: 'string' } },
+    tags: { type: 'list', of: { type: 'enum', options: tagList.map(item => item.value) } },
   },
   computedFields: {
     readingTime: {
       type: 'string',
-      resolve: (doc) => formatDuration(readingTime(doc.body.raw).time),
+      resolve: doc => formatDuration(readingTime(doc.body.raw).time),
     },
   },
 }))
@@ -37,6 +43,18 @@ export default makeSource({
     remarkPlugins: [remarkMath, remarkGfm, remarkImgToJsx, remarkGithubAlerts],
     rehypePlugins: [
       rehypeKatex,
+      () => tree => {
+        visit(tree, node => {
+          if (node?.type === 'element' && node?.tagName === 'pre') {
+            const [codeEl] = node.children
+            if (codeEl.tagName !== 'code') {
+              return
+            }
+
+            node.__rawCode__ = codeEl.children[0].value
+          }
+        })
+      },
       rehypeSlug,
       [
         rehypePrettyCode,
@@ -44,6 +62,21 @@ export default makeSource({
           theme: 'one-dark-pro',
         },
       ],
+      () => tree => {
+        visit(tree, node => {
+          if (node?.type === 'element' && node?.tagName === 'figure') {
+            if (!('data-rehype-pretty-code-figure' in node.properties)) {
+              return
+            }
+            const preElement = node.children.at(-1)
+            if (preElement.tagName !== 'pre') {
+              return
+            }
+
+            preElement.properties['__rawCode__'] = node.__rawCode__
+          }
+        })
+      },
     ],
   },
 })

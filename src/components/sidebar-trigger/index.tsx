@@ -20,11 +20,12 @@ export const SidebarTrigger = React.forwardRef<
       variant="ghost"
       size="sm"
       className={cn(className)}
-      onClick={(event) => {
+      onClick={event => {
         onClick?.(event)
         toggleSidebar()
       }}
-      {...props}>
+      {...props}
+    >
       <PanelLeft />
       <span>{open ? '关闭' : '打开'}</span>
       <span className="sr-only">Toggle Sidebar</span>
