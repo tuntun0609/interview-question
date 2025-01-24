@@ -69,7 +69,7 @@ export default async function List({
           <QuestionTable questionList={showQuestionList} />
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 pb-4">
         <Pagination>
           <PaginationContent>
             <PaginationItem>

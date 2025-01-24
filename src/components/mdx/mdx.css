@@ -1,19 +1,172 @@
-code[data-line-numbers] {
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6,
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol {
+  @apply mb-6;
+}
+
+.markdown-body h1 {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.markdown-body h2 {
+  @apply text-2xl font-semibold text-foreground;
+}
+
+.markdown-body h3 {
+  @apply text-xl font-semibold text-foreground;
+}
+
+.markdown-body h4 {
+  @apply text-xl font-semibold;
+}
+
+.markdown-body h5 {
+  @apply text-lg font-semibold;
+}
+
+.markdown-body h6 {
+  @apply text-base font-semibold;
+}
+
+.markdown-body a {
+  @apply text-purple-600 underline;
+}
+
+
+.markdown-body ul {
+  @apply mt-0 list-disc pl-5
+}
+
+.markdown-body ul ul {
+  @apply my-2;
+  list-style: circle;
+}
+
+.markdown-body ul ul ul {
+  @apply my-2;
+  list-style: square;
+}
+
+.markdown-body ol {
+  @apply mt-0 list-decimal pl-5;
+}
+
+.markdown-body ol ol {
+  @apply my-2
+}
+
+.markdown-body ol ol ol {
+  @apply my-2;
+}
+
+.markdown-body li {
+  @apply mb-2;
+}
+
+.markdown-body blockquote {
+  @apply my-4 border-l-4 border-gray-200 pl-4 italic text-gray-400 dark:text-gray-300
+}
+
+.markdown-body table {
+  padding: 0;
+  word-break: initial;
+
+  @apply mb-6;
+}
+
+.markdown-body table tr {
+  border: 1px solid #dfe2e5;
+  margin: 0;
+  padding: 0;
+}
+
+.dark .markdown-body table tr {
+  border: 1px solid #3D454D;
+}
+
+.markdown-body table tr:nth-child(2n),
+.markdown-body thead {
+  background-color: #f8f8f8;
+}
+
+.dark .markdown-body table tr:nth-child(2n),
+.dark .markdown-body thead {
+  background-color: #0d1117;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+  border: 1px solid #dfe2e5;
+  border-bottom: 0;
+  margin: 0;
+  padding: 6px 13px;
+}
+
+.dark .markdown-body table th {
+  border: 1px solid #3D454D;
+}
+
+.markdown-body table td {
+  border: 1px solid #dfe2e5;
+  margin: 0;
+  padding: 6px 13px;
+}
+
+.dark .markdown-body table td {
+  border: 1px solid #3D454D;
+}
+
+.markdown-body table th:first-child,
+.markdown-body table td:first-child {
+  margin-top: 0;
+}
+
+.markdown-body table th:last-child,
+.markdown-body table td:last-child {
+  margin-bottom: 0;
+}
+
+
+.markdown-body pre {
+  @apply rounded-lg relative overflow-x-auto py-4;
+}
+
+.markdown-body pre,
+.markdown-body code,
+.markdown-body figure {
+  @apply overflow-x-auto;
+}
+
+.markdown-body pre code {
+  @apply rounded-none border-none !bg-transparent p-0 text-base;
+}
+
+.markdown-body code {
+  @apply rounded-md bg-[#f0f1f2] px-1 py-1 text-sm text-gray-800 dark:bg-[#3b3f44] dark:text-gray-300;
+}
+
+.markdown-body code[data-line-numbers] {
   counter-reset: line;
 }
 
-code[data-line-numbers]>[data-line]::before {
+.markdown-body code[data-line-numbers]>[data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply inline-block w-4 mr-4 text-sm text-right text-gray-600;
+  @apply mr-4 inline-block w-4 text-right text-sm text-gray-600;
 }
 
-.prose {
+.markdown-body .prose {
   @apply max-w-[55rem] sm:text-lg md:text-xl;
 }
 
-pre [data-line] {
-  @apply px-4 border-l-2 border-l-transparent;
+.markdown-body pre [data-line] {
+  @apply border-l-2 border-l-transparent px-4;
 }
 
 [data-highlighted-line] {
@@ -22,12 +175,12 @@ pre [data-line] {
 }
 
 [data-highlighted-chars] {
-  @apply bg-zinc-600/50 rounded;
+  @apply rounded bg-zinc-600/50;
   box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
 }
 
 [data-chars-id] {
-  @apply shadow-none p-1 border-b-2;
+  @apply border-b-2 p-1 shadow-none;
 }
 
 [data-chars-id] span {
@@ -35,46 +188,29 @@ pre [data-line] {
 }
 
 [data-chars-id='v'] {
-  @apply !text-pink-300 bg-rose-800/50 border-b-pink-600 font-bold;
+  @apply border-b-pink-600 bg-rose-800/50 font-bold !text-pink-300;
 }
 
 [data-chars-id='s'] {
-  @apply !text-yellow-300 bg-yellow-800/50 border-b-yellow-600 font-bold;
+  @apply border-b-yellow-600 bg-yellow-800/50 font-bold !text-yellow-300;
 }
 
 [data-chars-id='i'] {
-  @apply !text-purple-200 bg-purple-800/50 border-b-purple-600 font-bold;
+  @apply border-b-purple-600 bg-purple-800/50 font-bold !text-purple-200;
 }
 
 [data-rehype-pretty-code-title] {
-  @apply bg-zinc-700 text-zinc-200 rounded-t-lg py-2 px-3 font-semibold text-sm;
+  @apply rounded-t-lg bg-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-200;
 }
 
-figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre {
+.markdown-body figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre {
   @apply !rounded-t-none;
 }
 
-figure {
-  @apply mb-4;
+.markdown-body figure {
+  @apply mb-6;
 }
 
-pre {
-  @apply rounded-lg;
-}
-
-pre,
-code,
-figure {
-  @apply overflow-x-auto;
-}
-
-pre code {
-  @apply !bg-transparent p-0 text-base rounded-none border-none;
-}
-
-code {
-  @apply px-1 py-1 text-sm rounded-md bg-[#f0f1f2] dark:bg-[#3b3f44] text-gray-800 dark:text-gray-300;
-}
 
 .content-header-link {
   transition: opacity 0.15s;
@@ -89,21 +225,12 @@ code {
   opacity: 1;
 }
 
-.linkIcon {
+.markdown-body .linkIcon {
   display: inline-block;
   vertical-align: middle;
 }
 
-#article ul {
-  list-style: disc;
-}
 
-#article ul ul {
-  @apply mt-2;
-  list-style: circle;
-}
-
-#article ul ul ul {
-  @apply mt-2;
-  list-style: square;
+.markdown-body .markdown-alert {
+  @apply mb-6;
 }

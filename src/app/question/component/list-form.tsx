@@ -61,7 +61,7 @@ export default function ListForm() {
   }, [searchParams, form])
 
   return (
-    <Card>
+    <Card className="dark:bg-slate-950">
       <CardHeader>
         <CardTitle>题目列表</CardTitle>
       </CardHeader>

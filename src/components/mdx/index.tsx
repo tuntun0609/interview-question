@@ -4,6 +4,8 @@ import { PhotoProvider } from 'react-photo-view'
 import { RotateCw, ZoomIn, ZoomOut } from 'lucide-react'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 
+import { cn } from '@/lib/utils'
+
 import MDXComponents from './mdx-components'
 
 import './mdx.css'
@@ -38,7 +40,9 @@ export const MDXContent = ({ code }: { code: string }) => {
         )
       }}
     >
-      <MDXContent components={MDXComponents} />
+      <div className={cn('markdown-body leading-7 text-[#374151] dark:text-[#d1d5db]')}>
+        <MDXContent components={MDXComponents} />
+      </div>
     </PhotoProvider>
   )
 }

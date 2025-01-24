@@ -18,7 +18,7 @@ export default function QuestionTable({ questionList }: { questionList: Question
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className="bg-muted/50">
           <TableHead>标题</TableHead>
           <TableHead>标签</TableHead>
           <TableHead>难度</TableHead>
