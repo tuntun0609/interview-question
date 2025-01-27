@@ -38,8 +38,10 @@ export const formatDuration = (ms: number) => {
   return formattedTime
 }
 
-export const sortQuestions = (questions: Question[]) =>
-  questions.sort((a, b) => (dayjs(b.date).isAfter(dayjs(a.date)) ? 1 : -1))
+export const sortQuestions = (questions: Question[], sort: 'desc' | 'asc' = 'desc') =>
+  questions.sort((a, b) =>
+    sort === 'desc' ? dayjs(b.date).diff(dayjs(a.date)) : dayjs(a.date).diff(dayjs(b.date))
+  )
 
 export const getSystemTheme = () => {
   const media = window.matchMedia('(prefers-color-scheme: dark)')

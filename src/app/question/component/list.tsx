@@ -8,10 +8,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import { tagList } from '@/config'
-import { sortQuestions } from '@/lib/utils'
-import { allQuestions, Question } from 'contentlayer/generated'
-
-const pageSize = 15
+import { getQuestionList } from '@/lib/question'
 
 export default async function List({
   searchParams,
@@ -25,48 +22,23 @@ export default async function List({
   const { tags = '', page = '1', title = '' } = searchParams
   const tagsArray = tags.split(',').filter(item => tagList.some(tag => tag.value === item))
 
-  let pageNumber = parseInt(page)
-
-  const allFilterPosts = sortQuestions(
-    allQuestions.filter(item => {
-      if (tagsArray.length > 0) {
-        return item.tags?.some(tag => tagsArray.includes(tag))
-      }
-      if (title) {
-        return item.title.toLowerCase().includes(title.toLowerCase())
-      }
-      return true
-    })
-  )
-
-  // 获取总数据量
-  const totalPosts = allFilterPosts.length
-
-  // 计算总页数
-  const totalPageCount = Math.ceil(totalPosts / pageSize)
+  const { questions, totalPageCount, currentPage } = await getQuestionList({
+    tags: tagsArray,
+    page: Number(page),
+    title,
+    isPublish: false,
+  })
 
   // 处理无数据的情况
   if (totalPageCount === 0) {
     return <div className="mt-4 text-center text-gray-500">暂无数据</div>
   }
 
-  if (pageNumber < 1) {
-    pageNumber = 1
-  } else if (pageNumber > totalPageCount) {
-    pageNumber = totalPageCount
-  }
-
-  // 根据分页和标签获取题目列表
-  const showQuestionList: Question[] = allFilterPosts.slice(
-    (pageNumber - 1) * pageSize,
-    pageNumber * pageSize
-  )
-
   return (
     <div>
       <div className="mt-8 flex flex-col gap-4">
         <div className="rounded-md border">
-          <QuestionTable questionList={showQuestionList} />
+          <QuestionTable questionList={questions} />
         </div>
       </div>
       <div className="mt-4 pb-4">
@@ -74,9 +46,9 @@ export default async function List({
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
-                href={`?page=${pageNumber - 1}${tags ? `&tags=${tags}` : ''}`}
-                aria-disabled={pageNumber === 1}
-                className={pageNumber === 1 ? 'pointer-events-none opacity-50' : ''}
+                href={`?page=${currentPage - 1}${tags ? `&tags=${tags}` : ''}`}
+                aria-disabled={currentPage === 1}
+                className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
 
@@ -84,7 +56,7 @@ export default async function List({
               <PaginationItem key={page}>
                 <PaginationLink
                   href={`?page=${page}${tags ? `&tags=${tags}` : ''}`}
-                  isActive={pageNumber === page}
+                  isActive={currentPage === page}
                 >
                   {page}
                 </PaginationLink>
@@ -93,9 +65,9 @@ export default async function List({
 
             <PaginationItem>
               <PaginationNext
-                href={`?page=${pageNumber + 1}${tags ? `&tags=${tags}` : ''}`}
-                aria-disabled={pageNumber === totalPageCount}
-                className={pageNumber === totalPageCount ? 'pointer-events-none opacity-50' : ''}
+                href={`?page=${currentPage + 1}${tags ? `&tags=${tags}` : ''}`}
+                aria-disabled={currentPage === totalPageCount}
+                className={currentPage === totalPageCount ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
           </PaginationContent>

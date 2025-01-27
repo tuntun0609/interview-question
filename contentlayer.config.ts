@@ -27,6 +27,7 @@ export const Question = defineDocumentType(() => ({
     date: { type: 'date', required: true },
     slug: { type: 'string', required: true },
     tags: { type: 'list', of: { type: 'enum', options: tagList.map(item => item.value) } },
+    isPublish: { type: 'boolean', required: false, default: true },
   },
   computedFields: {
     readingTime: {
