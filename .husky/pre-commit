@@ -1,2 +1,2 @@
 #!/bin/sh
-pnpm lint
+pnpm lint && pnpm ts:check

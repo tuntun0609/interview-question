@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint --max-warnings=0",
     "lint:fix": "next lint --fix",
+    "ts:check": "tsc --noEmit",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "prepare": "husky"

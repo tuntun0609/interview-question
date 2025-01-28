@@ -26,7 +26,7 @@ export default async function List({
     tags: tagsArray,
     page: Number(page),
     title,
-    isPublish: false,
+    isFilterPublish: false,
   })
 
   // 处理无数据的情况
