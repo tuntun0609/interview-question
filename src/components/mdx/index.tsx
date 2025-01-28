@@ -40,9 +40,9 @@ export const MDXContent = ({ code }: { code: string }) => {
         )
       }}
     >
-      <div className={cn('markdown-body leading-7 text-[#374151] dark:text-[#d1d5db]')}>
+      <article className={cn('markdown-body leading-7 text-[#374151] dark:text-[#d1d5db]')}>
         <MDXContent components={MDXComponents} />
-      </div>
+      </article>
     </PhotoProvider>
   )
 }

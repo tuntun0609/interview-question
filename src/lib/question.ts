@@ -8,28 +8,43 @@ export const getQuestionList = async ({
   tags = [],
   page,
   title,
-  isPublish = false,
+  isFilterPublish = true,
   sort = 'desc',
 }: {
-  tags: string[]
+  tags?: string[]
   page: number
-  title: string
-  isPublish: boolean
+  title?: string
+  isFilterPublish?: boolean
   sort?: 'desc' | 'asc'
 }) => {
   let pageNumber = page
   const filterQuestions = sortQuestions(
     allQuestions.filter(item => {
+      // 标签是否匹配
+      let isTagMatch = false
       if (tags.length > 0) {
-        return item.tags?.some(tag => tags.includes(tag))
+        isTagMatch = item.tags?.some(tag => tags.includes(tag)) ?? false
+      } else {
+        isTagMatch = true
       }
+
+      // 标题是否匹配
+      let isTitleMatch = false
       if (title) {
-        return item.title.toLowerCase().includes(title.toLowerCase())
+        isTitleMatch = item.title.toLowerCase().includes(title.toLowerCase())
+      } else {
+        isTitleMatch = true
       }
-      if (isPublish) {
-        return item.isPublish
+
+      // 是否发布
+      let isPublish = false
+      if (isFilterPublish) {
+        isPublish = item.isPublish
+      } else {
+        isPublish = true
       }
-      return true
+
+      return isTagMatch && isTitleMatch && isPublish
     }),
     sort
   )

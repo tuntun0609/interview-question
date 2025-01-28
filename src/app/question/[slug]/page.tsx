@@ -6,12 +6,13 @@ import { notFound } from 'next/navigation'
 import { GiscusComment } from '@/components/comment'
 import { MDXContent } from '@/components/mdx'
 import ScrollTopButton from '@/components/scroll-to-top'
+import TOC from '@/components/toc'
 import { siteConfig } from '@/config'
 import { cn } from '@/lib/utils'
 import { allQuestions } from 'contentlayer/generated'
 
 export const generateStaticParams = async () => {
-  return allQuestions.map(item => ({ slug: item.slug }))
+  return allQuestions.filter(item => item.isPublish).map(item => ({ slug: item.slug }))
 }
 
 export const generateMetadata = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -68,6 +69,11 @@ export default async function QuestionDetailPage({
           </div>
         </div>
 
+        <div className="fixed right-16 top-16 mt-8 hidden w-1/6 lg:block">
+          <div className="sticky right-0 top-16 mt-8">
+            <TOC />
+          </div>
+        </div>
         <div className="mt-8">
           <GiscusComment />
         </div>
