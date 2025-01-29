@@ -38,8 +38,12 @@ export default function ListForm() {
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     const searchParams = new URLSearchParams()
-    searchParams.set('tags', Array.from(data.tags).join(','))
-    searchParams.set('title', data.title)
+    if (data.tags.size > 0) {
+      searchParams.set('tags', Array.from(data.tags).join(','))
+    }
+    if (data.title) {
+      searchParams.set('title', data.title)
+    }
     router.push(`?${searchParams.toString()}`)
   }
 

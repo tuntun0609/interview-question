@@ -32,7 +32,7 @@ export default async function QuestionDetailPage({
 }) {
   const { slug: id } = await params
 
-  const question = allQuestions.find(item => item.slug === id)
+  const question = allQuestions.filter(item => item.isPublish).find(item => item.slug === id)
 
   if (!question) {
     return notFound()
