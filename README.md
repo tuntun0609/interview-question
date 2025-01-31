@@ -2,6 +2,8 @@
 
 一个基于 Next.js 构建的现代面试题解答平台。
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bd9ce472-f5ec-4d3b-81a8-bc051a8fb8f7/deploy-status)](https://app.netlify.com/sites/fe-question/deploys)
+
 ## 技术栈
 
 - **框架**: Next.js

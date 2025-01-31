@@ -21,6 +21,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: '前端面试宝典',
   description: '前端面试宝典',
+  referrer: 'no-referrer',
 }
 
 export default function RootLayout({

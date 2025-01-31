@@ -1,10 +1,8 @@
-import { PhotoView } from 'react-photo-view'
-import NextImage from 'next/image'
-
 import { cn } from '@/lib/utils'
 
 import { CopyCodeButton } from './copy-code-btn'
 import CustomLink from './custom-link'
+import { Image as CustomImage } from './image'
 
 import type { MDXComponents as MDXComponentsType } from 'mdx/types'
 
@@ -19,28 +17,10 @@ const MDXComponents: MDXComponentsType = {
     )
   },
   img: props => {
-    return (
-      <PhotoView src={props.src}>
-        <NextImage
-          alt={props.alt}
-          src={props.src}
-          className={cn('cursor-zoom-in', props.className)}
-          {...props}
-        />
-      </PhotoView>
-    )
+    return <CustomImage {...props} />
   },
   Image: props => {
-    return (
-      <PhotoView src={props.src}>
-        <NextImage
-          alt={props.alt}
-          src={props.src}
-          className={cn('cursor-zoom-in', props.className)}
-          {...props}
-        />
-      </PhotoView>
-    )
+    return <CustomImage {...props} />
   },
 }
 

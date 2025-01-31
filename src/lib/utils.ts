@@ -49,3 +49,7 @@ export const getSystemTheme = () => {
   const systemTheme = isDark ? 'dark' : 'light'
   return systemTheme
 }
+
+export const isCdnImage = (src: string) => {
+  return src.startsWith('https://') || src.startsWith('http://')
+}
