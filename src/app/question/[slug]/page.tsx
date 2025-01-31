@@ -69,7 +69,7 @@ export default async function QuestionDetailPage({
           </div>
         </div>
 
-        <div className="fixed right-16 top-16 mt-8 hidden w-1/6 lg:block">
+        <div className="fixed right-16 top-16 mt-8 hidden max-h-[60%] w-1/6 overflow-y-auto lg:block">
           <div className="sticky right-0 top-16 mt-8">
             <TOC />
           </div>
