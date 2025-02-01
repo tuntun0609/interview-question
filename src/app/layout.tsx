@@ -9,6 +9,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
+import { Analytics } from '@/components/analytics'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
@@ -44,6 +45,7 @@ export default function RootLayout({
           <TailwindIndicator />
         </ThemeProvider>
       </body>
+      <Analytics />
     </html>
     // </ClerkProvider>
   )
