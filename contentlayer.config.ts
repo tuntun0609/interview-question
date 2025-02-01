@@ -1,3 +1,4 @@
+import { remarkMermaid } from '@theguild/remark-mermaid'
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files'
 import { remarkImgToJsx } from 'pliny/mdx-plugins/index.js'
 import readingTime from 'reading-time'
@@ -41,7 +42,13 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Question],
   mdx: {
-    remarkPlugins: [remarkMath, remarkGfm, remarkImgToJsx, remarkGithubAlerts],
+    remarkPlugins: [
+      remarkMath,
+      remarkGfm,
+      remarkImgToJsx,
+      remarkGithubAlerts,
+      remarkMermaid as any,
+    ],
     rehypePlugins: [
       rehypeKatex,
       () => tree => {

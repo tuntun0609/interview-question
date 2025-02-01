@@ -6,8 +6,9 @@
 .markdown-body h6,
 .markdown-body p,
 .markdown-body ul,
-.markdown-body ol {
-  @apply mb-6;
+.markdown-body ol,
+.markdown-body table {
+  @apply my-6;
 }
 
 .markdown-body h1 {
