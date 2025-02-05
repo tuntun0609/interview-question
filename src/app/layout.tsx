@@ -34,7 +34,7 @@ export default function RootLayout({
     // <ClerkProvider localization={zhCN}>
     <html lang="zh" className={`${spaceGrotesk.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="font-sans">
-        <NextTopLoader color="#7c3aed" zIndex={51} showSpinner={false} />
+        <NextTopLoader color="#7c3aed" zIndex={51} showSpinner={false} showForHashAnchor={false} />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="">
             <Header />
