@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { siteConfig } from '@/config'
 
+// import Search from '../search'
 import ThemeToggle from '../theme/theme-toggle'
 import { Button } from '../ui/button'
 
@@ -24,6 +25,9 @@ export default async function Header() {
       </div>
       <nav className="flex items-center gap-1">
         <ul className="flex items-center">
+          {/* <li>
+            <Search />
+          </li> */}
           <li>
             <Link href="/question">
               <Button variant="ghost">题目列表</Button>
@@ -40,7 +44,6 @@ export default async function Header() {
             <ThemeToggle />
           </li>
         </ul>
-
         {/* <ClerkLoading>
           <div className="flex w-[60px] items-center justify-center">
             <Loader className="animate-spin" />
