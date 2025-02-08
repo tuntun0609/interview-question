@@ -104,6 +104,9 @@
     "tsx": "^4.19.2",
     "typescript": "^5"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --max-warnings=0"
+  },
   "pnpm": {
     "overrides": {
       "@types/react": "19.0.7",

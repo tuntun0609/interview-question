@@ -1,2 +1,2 @@
 #!/bin/sh
-pnpm lint && pnpm ts:check
+npx lint-staged && pnpm ts:check
