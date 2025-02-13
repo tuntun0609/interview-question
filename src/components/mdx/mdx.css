@@ -145,7 +145,7 @@
 }
 
 .markdown-body pre code {
-  @apply rounded-none border-none !bg-transparent p-0 text-base;
+  @apply rounded-none border-none !bg-transparent p-0 text-base text-gray-300;
 }
 
 .markdown-body code {
