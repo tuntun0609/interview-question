@@ -1,3 +1,5 @@
+import { enUS, zhCN } from '@clerk/localizations'
+import { ClerkProvider } from '@clerk/nextjs'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import NextTopLoader from 'nextjs-toploader'
@@ -15,7 +17,6 @@ import { caveat, notoSans } from '@/style/font'
 import type { Metadata } from 'next'
 
 import '@/style/globals.css'
-import '@/styles/select-fixes.css'
 
 export const metadata: Metadata = {
   title: 'Interview Question',
@@ -40,34 +41,40 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={cn(notoSans.variable, caveat.variable, 'antialiased')}
-        style={{
-          fontFamily: 'var(--font-noto-sans)',
-        }}
-      >
-        <NextIntlClientProvider>
-          <NextTopLoader
-            color={siteConfig.topLoaderColor}
-            zIndex={51}
-            showSpinner={false}
-            showForHashAnchor={false}
-          />
-          <ThemeProvider>
-            <TooltipProvider>
-              {children}
-              <Toaster richColors />
-            </TooltipProvider>
-          </ThemeProvider>
-          <TailwindIndicator />
-        </NextIntlClientProvider>
+    <ClerkProvider
+      localization={locale === 'zh' ? zhCN : enUS}
+      signInUrl={`/sign-in`}
+      signUpUrl={`/sign-up`}
+    >
+      <html lang={locale} suppressHydrationWarning>
+        <body
+          className={cn(notoSans.variable, caveat.variable, 'antialiased')}
+          style={{
+            fontFamily: 'var(--font-noto-sans)',
+          }}
+        >
+          <NextIntlClientProvider>
+            <NextTopLoader
+              color={siteConfig.topLoaderColor}
+              zIndex={51}
+              showSpinner={false}
+              showForHashAnchor={false}
+            />
+            <ThemeProvider>
+              <TooltipProvider>
+                {children}
+                <Toaster richColors />
+              </TooltipProvider>
+            </ThemeProvider>
+            <TailwindIndicator />
+          </NextIntlClientProvider>
 
-        {/* Analytics */}
-        <GoogleAnalytics />
-        <Umami />
-        <Clarity />
-      </body>
-    </html>
+          {/* Analytics */}
+          <GoogleAnalytics />
+          <Umami />
+          <Clarity />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

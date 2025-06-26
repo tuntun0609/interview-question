@@ -1,17 +1,21 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 import { cn } from '@/lib/utils'
 
 import { LocaleSwitch } from './blocks/locale-switch'
 import { Logo } from './logo'
 import ThemeToggle from './theme/theme-toggle'
+import { Button } from './ui/button'
 
 export const HeroHeader = () => {
   const [menuState, setMenuState] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const locale = useLocale()
 
   /**
    * label: 标题
@@ -85,9 +89,20 @@ export const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <LocaleSwitch />
                   <ThemeToggle />
+                  <SignedOut>
+                    <SignUpButton>
+                      <Button variant="outline">注册</Button>
+                    </SignUpButton>
+                    <SignInButton>
+                      <Button>登录</Button>
+                    </SignInButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton userProfileUrl={`/${locale}/user-profile`} />
+                  </SignedIn>
                 </div>
               </div>
             </div>
