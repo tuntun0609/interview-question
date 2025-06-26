@@ -1,0 +1,79 @@
+import { FileQuestion, Tags } from 'lucide-react'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+
+import { Separator } from '@/components/ui/separator'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
+import { checkRole } from '@/lib/roles'
+
+const DashboardLayout = async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: { locale: string }
+}) => {
+  if (!(await checkRole('admin'))) {
+    redirect('/')
+  }
+
+  const { locale } = params
+
+  return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader>
+          <h2 className="px-4 py-3 text-lg font-semibold">管理面板</h2>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>内容管理</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href={`/${locale}/dashboard/questions`}>
+                      <FileQuestion className="h-4 w-4" />
+                      <span>查看所有题目</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href={`/${locale}/dashboard/tags`}>
+                      <Tags className="h-4 w-4" />
+                      <span>管理标签</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <h1 className="text-lg font-semibold">面试题管理系统</h1>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+      </SidebarInset>
+    </SidebarProvider>
+  )
+}
+
+export default DashboardLayout
