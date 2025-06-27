@@ -1,19 +1,38 @@
 'use client'
 import { useState, useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { type MDXEditorMethods } from '@mdxeditor/editor'
 import { Save, Eye, FileText } from 'lucide-react'
+import * as z from 'zod'
 
 import { MDXEditorWrapper } from '@/components/mdx-editor-wrapper'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
+const formSchema = z.object({
+  title: z.string().min(2, '标题至少需要2个字符'),
+  difficulty: z.coerce.number().min(1, '难度最小为1').max(5, '难度最大为5'),
+  tags: z.string().min(1, '请至少输入一个标签'),
+})
 
 export default function AddQuestionPage() {
-  const [title, setTitle] = useState('')
-  const [difficulty, setDifficulty] = useState('')
-  const [tags, setTags] = useState('')
   const [isPreview, setIsPreview] = useState(false)
   const [markdownContent, setMarkdownContent] = useState(`# 面试题目
 
@@ -43,12 +62,20 @@ function solution() {
 
   const editorRef = useRef<MDXEditorMethods>(null)
 
-  const handleSave = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+      difficulty: undefined,
+      tags: '',
+    },
+  })
+
+  const handleSave = (values: z.infer<typeof formSchema>) => {
     const content = editorRef.current?.getMarkdown() || ''
     console.log('保存题目:', {
-      title,
-      difficulty,
-      tags: tags
+      ...values,
+      tags: values.tags
         .split(',')
         .map(tag => tag.trim())
         .filter(Boolean),
@@ -74,92 +101,113 @@ function solution() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
-        {/* 左侧表单 */}
-        <div className="space-y-4 lg:col-span-1">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">基本信息</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">题目标题</Label>
-                <Input
-                  id="title"
-                  placeholder="请输入题目标题"
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
-                />
-              </div>
+      <div className="space-y-6">
+        {/* 基本信息表单 */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">基本信息</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(handleSave)} className="space-y-6">
+                <div className="flex flex-col gap-4">
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>题目标题</FormLabel>
+                        <FormControl>
+                          <Input placeholder="请输入题目标题" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className="space-y-2">
-                <Label htmlFor="difficulty">难度等级</Label>
-                <select
-                  id="difficulty"
-                  className="border-border w-full rounded-md border px-3 py-2"
-                  value={difficulty}
-                  onChange={e => setDifficulty(e.target.value)}
-                >
-                  <option value="">请选择难度</option>
-                  <option value="初级">初级</option>
-                  <option value="中级">中级</option>
-                  <option value="高级">高级</option>
-                </select>
-              </div>
+                  <FormField
+                    control={form.control}
+                    name="difficulty"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>难度等级</FormLabel>
+                        <Select
+                          onValueChange={value => field.onChange(Number(value))}
+                          value={field.value?.toString()}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="选择难度 (1-5)" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="1">1 - 非常简单</SelectItem>
+                            <SelectItem value="2">2 - 简单</SelectItem>
+                            <SelectItem value="3">3 - 中等</SelectItem>
+                            <SelectItem value="4">4 - 困难</SelectItem>
+                            <SelectItem value="5">5 - 非常困难</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className="space-y-2">
-                <Label htmlFor="tags">标签</Label>
-                <Input
-                  id="tags"
-                  placeholder="React, JavaScript, 前端"
-                  value={tags}
-                  onChange={e => setTags(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">用逗号分隔多个标签</p>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-2">
-                <Button onClick={handleSave} className="w-full" size="sm">
-                  <Save className="mr-2 h-4 w-4" />
-                  保存题目
-                </Button>
-
-                <Button onClick={handlePreview} variant="outline" className="w-full" size="sm">
-                  <Eye className="mr-2 h-4 w-4" />
-                  {isPreview ? '编辑模式' : '预览模式'}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* 右侧编辑器 */}
-        <div className="lg:col-span-3">
-          <Card className="min-h-[600px]">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between text-lg">
-                <span>题目内容编辑</span>
-                <div className="text-muted-foreground text-sm">
-                  {isPreview ? '预览模式' : 'Markdown 编辑模式'}
+                  <FormField
+                    control={form.control}
+                    name="tags"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>标签</FormLabel>
+                        <FormControl>
+                          <Input placeholder="React, JavaScript, 前端" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        <p className="text-muted-foreground text-xs">用逗号分隔多个标签</p>
+                      </FormItem>
+                    )}
+                  />
                 </div>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="min-h-[500px]">
-                <MDXEditorWrapper
-                  ref={editorRef}
-                  markdown={markdownContent}
-                  onChange={content => setMarkdownContent(content)}
-                  placeholder="开始编写你的面试题目..."
-                  readOnly={isPreview}
-                  className="min-h-[500px]"
-                />
+
+                <div className="flex gap-2">
+                  <Button type="submit">
+                    <Save className="mr-2 h-4 w-4" />
+                    保存题目
+                  </Button>
+
+                  <Button type="button" onClick={handlePreview} variant="outline">
+                    <Eye className="mr-2 h-4 w-4" />
+                    {isPreview ? '编辑模式' : '预览模式'}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        {/* 内容编辑器 */}
+        <Card className="min-h-[600px]">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between text-lg">
+              <span>题目内容编辑</span>
+              <div className="text-muted-foreground text-sm">
+                {isPreview ? '预览模式' : 'Markdown 编辑模式'}
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="min-h-[500px]">
+              <MDXEditorWrapper
+                ref={editorRef}
+                markdown={markdownContent}
+                onChange={content => setMarkdownContent(content)}
+                placeholder="开始编写你的面试题目..."
+                readOnly={isPreview}
+                className="min-h-[500px]"
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
