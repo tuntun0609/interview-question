@@ -62,7 +62,7 @@ export default function AddTagForm() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                名称*
+                名称
               </Label>
               <Input
                 id="name"

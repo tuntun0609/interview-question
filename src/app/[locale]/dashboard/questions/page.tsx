@@ -1,4 +1,5 @@
 import { Plus, Search, Filter } from 'lucide-react'
+import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -14,9 +15,10 @@ import {
 } from '@/components/ui/table'
 import { getQuestions } from '@/service/questions'
 
-export default async function QuestionsPage() {
+export default async function QuestionsPage({ params }: { params: Promise<{ locale: string }> }) {
   // 从数据库获取题目数据
   const questions = await getQuestions()
+  const { locale } = await params
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -49,9 +51,11 @@ export default async function QuestionsPage() {
           <h1 className="text-2xl font-bold tracking-tight">题目管理</h1>
           <p className="text-muted-foreground">管理和查看系统中的所有面试题目</p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          添加题目
+        <Button asChild>
+          <Link href={`/${locale}/dashboard/questions/add`}>
+            <Plus className="mr-2 h-4 w-4" />
+            添加题目
+          </Link>
         </Button>
       </div>
 
