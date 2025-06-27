@@ -161,44 +161,6 @@ function solution() {
           </Card>
         </div>
       </div>
-
-      {/* 使用提示 */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">编辑器功能说明</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2 lg:grid-cols-3">
-            <div>
-              <h4 className="mb-2 font-medium">基础格式</h4>
-              <ul className="text-muted-foreground space-y-1">
-                <li>• 支持标题 (H1-H6)</li>
-                <li>• 粗体、斜体、下划线</li>
-                <li>• 有序和无序列表</li>
-                <li>• 引用块</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-2 font-medium">高级功能</h4>
-              <ul className="text-muted-foreground space-y-1">
-                <li>• 代码块语法高亮</li>
-                <li>• 表格插入和编辑</li>
-                <li>• 图片上传和链接</li>
-                <li>• 链接自动完成</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-2 font-medium">快捷键</h4>
-              <ul className="text-muted-foreground space-y-1">
-                <li>• Ctrl+B: 粗体</li>
-                <li>• Ctrl+I: 斜体</li>
-                <li>• Ctrl+K: 插入链接</li>
-                <li>• Ctrl+Z: 撤销</li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }

@@ -20,18 +20,23 @@ export interface CreateTagData {
   name: string
 }
 
+export const getTags = async () => {
+  const allTags = await db
+    .select({
+      id: tags.id,
+      name: tags.name,
+      createdAt: tags.createdAt,
+    })
+    .from(tags)
+    .orderBy(desc(tags.createdAt))
+  return allTags
+}
+
 // 获取标签列表及其题目数量
 export async function getTagsWithCount(): Promise<TagWithCount[]> {
   try {
     // 查询所有标签
-    const allTags = await db
-      .select({
-        id: tags.id,
-        name: tags.name,
-        createdAt: tags.createdAt,
-      })
-      .from(tags)
-      .orderBy(desc(tags.createdAt))
+    const allTags = await getTags()
 
     // 为每个标签计算题目数量
     const tagsWithCount = await Promise.all(
