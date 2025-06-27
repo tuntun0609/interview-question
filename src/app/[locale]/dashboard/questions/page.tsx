@@ -12,35 +12,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { getQuestions } from '@/service/questions'
 
-export default function QuestionsPage() {
-  // 模拟数据
-  const questions = [
-    {
-      id: 1,
-      title: 'React Hooks 的使用',
-      difficulty: '中等',
-      tags: ['React', 'JavaScript', 'Frontend'],
-      createdAt: '2024-01-15',
-      status: '已发布',
-    },
-    {
-      id: 2,
-      title: 'Node.js 异步编程',
-      difficulty: '困难',
-      tags: ['Node.js', 'JavaScript', 'Backend'],
-      createdAt: '2024-01-14',
-      status: '草稿',
-    },
-    {
-      id: 3,
-      title: 'CSS Flexbox 布局',
-      difficulty: '简单',
-      tags: ['CSS', 'Frontend'],
-      createdAt: '2024-01-13',
-      status: '已发布',
-    },
-  ]
+export default async function QuestionsPage() {
+  // 从数据库获取题目数据
+  const questions = await getQuestions()
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -106,57 +82,78 @@ export default function QuestionsPage() {
           <CardDescription>共 {questions.length} 道题目</CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>标题</TableHead>
-                <TableHead>难度</TableHead>
-                <TableHead>标签</TableHead>
-                <TableHead>状态</TableHead>
-                <TableHead>创建日期</TableHead>
-                <TableHead>操作</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {questions.map(question => (
-                <TableRow key={question.id}>
-                  <TableCell className="font-medium">{question.title}</TableCell>
-                  <TableCell>
-                    <Badge className={getDifficultyColor(question.difficulty)}>
-                      {question.difficulty}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
-                      {question.tags.map(tag => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(question.status)}>{question.status}</Badge>
-                  </TableCell>
-                  <TableCell>{question.createdAt}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        编辑
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-red-600 hover:text-red-700"
-                      >
-                        删除
-                      </Button>
-                    </div>
-                  </TableCell>
+          {questions.length === 0 ? (
+            <div className="py-8 text-center">
+              <p className="text-muted-foreground">暂无题目数据</p>
+              <p className="text-muted-foreground mt-2 text-sm">
+                点击「添加题目」按钮创建第一道面试题
+              </p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>标题</TableHead>
+                  <TableHead>难度</TableHead>
+                  <TableHead>标签</TableHead>
+                  <TableHead>状态</TableHead>
+                  <TableHead>VIP</TableHead>
+                  <TableHead>创建日期</TableHead>
+                  <TableHead>操作</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {questions.map(question => (
+                  <TableRow key={question.id}>
+                    <TableCell className="font-medium">{question.title}</TableCell>
+                    <TableCell>
+                      <Badge className={getDifficultyColor(question.difficulty)}>
+                        {question.difficulty}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-wrap gap-1">
+                        {question.tags.length > 0 ? (
+                          question.tags.map(tag => (
+                            <Badge key={tag} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-muted-foreground text-sm">无标签</span>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={getStatusColor(question.status)}>{question.status}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      {question.isVip ? (
+                        <Badge className="bg-purple-100 text-purple-800">VIP</Badge>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">普通</span>
+                      )}
+                    </TableCell>
+                    <TableCell>{question.createdAt}</TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm">
+                          编辑
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-red-600 hover:text-red-700"
+                        >
+                          删除
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </CardContent>
       </Card>
     </div>

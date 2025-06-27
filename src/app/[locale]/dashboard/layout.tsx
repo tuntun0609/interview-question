@@ -24,13 +24,13 @@ const DashboardLayout = async ({
   params,
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) => {
   if (!(await checkRole('admin'))) {
     redirect('/')
   }
 
-  const { locale } = params
+  const { locale } = await params
 
   return (
     <SidebarProvider>
@@ -70,7 +70,7 @@ const DashboardLayout = async ({
           <Separator orientation="vertical" className="mr-2 h-4" />
           <h1 className="text-lg font-semibold">面试题管理系统</h1>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )
