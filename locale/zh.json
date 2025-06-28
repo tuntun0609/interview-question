@@ -12,11 +12,11 @@
     "locale": "{locale, select, zh {中文} en {English} other {Unknown}}"
   },
   "Hero": {
-    "getStarted": "去提问",
+    "getStarted": "开始练习",
     "toPlayground": "去探索",
-    "announcement": "😃 玩得开心",
-    "title": "餐厅点评 AI",
-    "description": "为了免费小吃需要点评？用我生成就可以了"
+    "announcement": "🚀 助力求职成功",
+    "title": "AI 面试题库",
+    "description": "精选海量面试题，AI智能推荐，助你轻松通过技术面试，成功拿到心仪offer"
   },
   "LoginCard": {
     "welcome": "欢迎回来",
@@ -189,7 +189,7 @@
     "customizable": "可定制",
     "youHaveFullControl": "您拥有完全控制权",
     "poweredByAI": "由AI驱动",
-    "customizableDescription": "广泛的自定义选项，允许您根据您的特定需求定制每个方面。",
+    "customizableDescription": "广泛的自定制选项，允许您根据您的特定需求定制每个方面。",
     "youHaveFullControlDescription": "从设计元素到功能，您拥有完全控制权，以创建独特且个性化的体验。",
     "poweredByAIDescription": "元素到功能，您拥有完全控制权，以创建独特且个性化的体验。"
   },
@@ -227,5 +227,54 @@
     "enterKey": "Enter",
     "shiftEnterKey": "Shift + Enter",
     "keyboardHint": "按 <Kdb>Enter</Kdb> 发送消息，<Kdb>Shift + Enter</Kdb> 换行"
+  },
+  "questionTypes": {
+    "title": "丰富的题目类型",
+    "description": "覆盖前端、后端、算法等多个技术领域",
+    "frontend": "前端开发",
+    "backend": "后端开发",
+    "algorithm": "算法数据结构",
+    "system": "系统设计",
+    "database": "数据库",
+    "network": "计算机网络",
+    "frontendDescription": "React、Vue、JavaScript、CSS等前端技术面试题",
+    "backendDescription": "Java、Python、Node.js等后端技术面试题",
+    "algorithmDescription": "数据结构、算法、编程题等核心基础题目",
+    "systemDescription": "高并发、分布式、微服务等架构设计题",
+    "databaseDescription": "MySQL、Redis、MongoDB等数据库相关题目",
+    "networkDescription": "TCP/IP、HTTP、网络安全等网络基础题"
+  },
+  "howItWorks": {
+    "title": "简单三步，开启面试准备",
+    "description": "智能化的学习流程，让面试准备更高效",
+    "step1": "选择领域",
+    "step2": "开始练习",
+    "step3": "查看解析",
+    "step1Description": "选择你想要练习的技术领域和难度级别",
+    "step2Description": "开始答题练习，支持模拟面试环境",
+    "step3Description": "查看详细解析和参考答案，深入理解"
+  },
+  "advantages": {
+    "title": "为什么选择我们",
+    "description": "专业的面试准备平台，助你求职路上一臂之力",
+    "aiPowered": "AI智能推荐",
+    "comprehensive": "题库全面",
+    "realtime": "实时更新",
+    "community": "社区讨论",
+    "aiPoweredDescription": "根据你的水平和薄弱环节，智能推荐合适的题目",
+    "comprehensiveDescription": "涵盖各大互联网公司真题，题库持续扩充",
+    "realtimeDescription": "紧跟技术发展趋势，题目内容实时更新",
+    "communityDescription": "与其他求职者交流经验，分享面试心得"
+  },
+  "stats": {
+    "title": "用户信赖的选择",
+    "totalQuestions": "题目总数",
+    "totalUsers": "注册用户",
+    "successRate": "通过率",
+    "companies": "合作企业",
+    "questionsCount": "50,000+",
+    "usersCount": "100,000+",
+    "successRateValue": "85%",
+    "companiesCount": "500+"
   }
 }
