@@ -1,9 +1,11 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { type MDXEditorMethods } from '@mdxeditor/editor'
 import { Save, Eye, FileText } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
 import { MDXEditorWrapper } from '@/components/mdx-editor-wrapper'
@@ -19,21 +21,30 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
+  InputMultiSelect,
+  InputMultiSelectTrigger,
+  SelectOption,
+} from '@/components/ui/multi-select'
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { createQuestion } from '@/service/questions'
+import { getTags } from '@/service/tags'
 
 const formSchema = z.object({
   title: z.string().min(2, '标题至少需要2个字符'),
   difficulty: z.coerce.number().min(1, '难度最小为1').max(5, '难度最大为5'),
-  tags: z.string().min(1, '请至少输入一个标签'),
+  tags: z.array(z.string()).min(1, '请至少输入一个标签'),
 })
 
 export default function AddQuestionPage() {
+  const router = useRouter()
   const [isPreview, setIsPreview] = useState(false)
+  const [tagOptions, setTagOptions] = useState<SelectOption[]>([])
   const [markdownContent, setMarkdownContent] = useState(`# 面试题目
 
 ## 题目描述
@@ -59,7 +70,6 @@ function solution() {
 - [相关文档](https://example.com)
 - [参考资料](https://example.com)
 `)
-
   const editorRef = useRef<MDXEditorMethods>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,20 +77,28 @@ function solution() {
     defaultValues: {
       title: '',
       difficulty: undefined,
-      tags: '',
+      tags: [],
     },
   })
 
-  const handleSave = (values: z.infer<typeof formSchema>) => {
+  const handleSave = async (values: z.infer<typeof formSchema>) => {
     const content = editorRef.current?.getMarkdown() || ''
     console.log('保存题目:', {
       ...values,
-      tags: values.tags
-        .split(',')
-        .map(tag => tag.trim())
-        .filter(Boolean),
       content,
     })
+    try {
+      const questionId = await createQuestion({
+        title: values.title,
+        difficulty: values.difficulty,
+        tags: values.tags,
+        content,
+      })
+      toast.success('题目保存成功')
+      router.push(`/dashboard/questions/${questionId}`)
+    } catch (_error) {
+      toast.error('题目保存失败')
+    }
     // 这里可以添加保存到数据库的逻辑
   }
 
@@ -88,8 +106,21 @@ function solution() {
     setIsPreview(!isPreview)
   }
 
+  useEffect(() => {
+    const getTagOptions = async () => {
+      const tags = await getTags()
+      setTagOptions(
+        tags.map(tag => ({
+          label: tag.name,
+          value: tag.id,
+        }))
+      )
+    }
+    getTagOptions()
+  }, [])
+
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="max-w-8xl mx-auto space-y-6">
       {/* 页面标题 */}
       <div>
         <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
@@ -160,7 +191,14 @@ function solution() {
                       <FormItem>
                         <FormLabel>标签</FormLabel>
                         <FormControl>
-                          <Input placeholder="React, JavaScript, 前端" {...field} />
+                          <InputMultiSelect
+                            options={tagOptions}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            placeholder="选择标签..."
+                          >
+                            {provided => <InputMultiSelectTrigger {...provided} />}
+                          </InputMultiSelect>
                         </FormControl>
                         <FormMessage />
                         <p className="text-muted-foreground text-xs">用逗号分隔多个标签</p>

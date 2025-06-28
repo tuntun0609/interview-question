@@ -1,3 +1,5 @@
+'use server'
+
 import { eq, desc, count } from 'drizzle-orm'
 
 import { db } from '@/db'

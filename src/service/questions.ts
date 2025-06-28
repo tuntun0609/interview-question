@@ -1,3 +1,6 @@
+'use server'
+
+import { auth } from '@clerk/nextjs/server'
 import { eq, desc } from 'drizzle-orm'
 
 import { db } from '@/db'
@@ -6,7 +9,7 @@ import { interviewQuestions, tags, interviewQuestionTags } from '@/db/schema'
 export interface QuestionWithTags {
   id: string
   title: string
-  difficulty: string
+  difficulty: number
   tags: string[]
   createdAt: string
   status: string
@@ -43,7 +46,7 @@ export async function getQuestions(): Promise<QuestionWithTags[]> {
         return {
           id: question.id,
           title: question.question,
-          difficulty: getDifficultyText(question.difficulty),
+          difficulty: question.difficulty,
           tags: questionTags.map(tag => tag.tagName),
           createdAt: question.createdAt.toISOString().split('T')[0], // 格式化日期
           status: question.isPublished ? '已发布' : '草稿',
@@ -56,22 +59,6 @@ export async function getQuestions(): Promise<QuestionWithTags[]> {
   } catch (error) {
     console.error('获取题目列表失败:', error)
     return []
-  }
-}
-
-// 将数字难度转换为中文
-function getDifficultyText(difficulty: number): string {
-  switch (difficulty) {
-    case 1:
-    case 2:
-      return '简单'
-    case 3:
-      return '中等'
-    case 4:
-    case 5:
-      return '困难'
-    default:
-      return '未知'
   }
 }
 
@@ -106,4 +93,47 @@ export async function getQuestionById(id: string) {
     console.error('获取题目详情失败:', error)
     return null
   }
+}
+
+export async function createQuestion(question: {
+  title: string
+  difficulty: number
+  tags: string[]
+  content: string
+}) {
+  const { title, difficulty, tags, content } = question
+  const { userId } = await auth()
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+  const [{ id: questionId }] = await db
+    .insert(interviewQuestions)
+    .values({
+      question: title,
+      answer: content,
+      difficulty,
+      publisherId: userId,
+      isPublished: true,
+      isVip: false,
+    })
+    .returning({ id: interviewQuestions.id })
+
+  await db.insert(interviewQuestionTags).values(
+    tags.map(tagId => ({
+      questionId,
+      tagId,
+    }))
+  )
+
+  return questionId
+}
+
+export const deleteQuestion = async (questionId: string) => {
+  const { userId } = await auth()
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+  await db.delete(interviewQuestions).where(eq(interviewQuestions.id, questionId))
+
+  return true
 }
