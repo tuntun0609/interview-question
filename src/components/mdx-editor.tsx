@@ -12,25 +12,17 @@ import {
   type MDXEditorProps,
   diffSourcePlugin,
   toolbarPlugin,
-  UndoRedo,
-  BoldItalicUnderlineToggles,
-  CreateLink,
-  InsertTable,
-  InsertThematicBreak,
-  ListsToggle,
-  BlockTypeSelect,
-  CodeToggle,
   codeBlockPlugin,
   codeMirrorPlugin,
   linkPlugin,
   linkDialogPlugin,
   tablePlugin,
   imagePlugin,
-  InsertImage,
   sandpackPlugin,
   frontmatterPlugin,
-  InsertFrontmatter,
-  DiffSourceToggleWrapper,
+  KitchenSinkToolbar,
+  AdmonitionDirectiveDescriptor,
+  directivesPlugin,
 } from '@mdxeditor/editor'
 
 const defaultSnippetContent = `
@@ -64,21 +56,22 @@ export default function InitializedMDXEditor({
   editorRef,
   ...props
 }: { editorRef?: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
-  const imageUploadHandler = async (_image: File) => {
-    // 这里可以实现图片上传逻辑
-    // 目前返回一个占位符URL
-    return Promise.resolve('https://picsum.photos/200/300')
+  const imageUploadHandler = async (image: File) => {
+    // 模拟图片上传，返回一个随机图片URL
+    return `https://picsum.photos/seed/${image.name}/800/400`
   }
 
   return (
     <MDXEditor
+      contentEditableClassName="prose dark:prose-invert max-w-none"
       plugins={[
         // 基础功能插件
-        headingsPlugin(),
         listsPlugin(),
         quotePlugin(),
+        headingsPlugin(),
         thematicBreakPlugin(),
         markdownShortcutPlugin(),
+        directivesPlugin({ directiveDescriptors: [AdmonitionDirectiveDescriptor] }),
 
         // 链接功能
         linkPlugin(),
@@ -91,36 +84,28 @@ export default function InitializedMDXEditor({
         imagePlugin({
           imageUploadHandler,
           imageAutocompleteSuggestions: [
-            'https://picsum.photos/200/300',
-            'https://picsum.photos/300/200',
+            'https://picsum.photos/seed/1/800/400',
+            'https://picsum.photos/seed/2/800/400',
           ],
         }),
 
         // 代码块功能
-        codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
+        codeBlockPlugin({
+          defaultCodeBlockLanguage: 'js',
+        }),
         codeMirrorPlugin({
           codeBlockLanguages: {
             js: 'JavaScript',
-            javascript: 'JavaScript',
             jsx: 'JavaScript (React)',
             ts: 'TypeScript',
-            typescript: 'TypeScript',
             tsx: 'TypeScript (React)',
             css: 'CSS',
             html: 'HTML',
             json: 'JSON',
             md: 'Markdown',
-            markdown: 'Markdown',
-            bash: 'Bash',
-            sh: 'Shell',
-            shell: 'Shell',
             python: 'Python',
-            py: 'Python',
-            java: 'Java',
-            cpp: 'C++',
-            c: 'C',
-            php: 'PHP',
-            sql: 'SQL',
+            rust: 'Rust',
+            go: 'Go',
           },
         }),
 
@@ -133,24 +118,12 @@ export default function InitializedMDXEditor({
         // 差异/源码视图
         diffSourcePlugin({
           viewMode: 'rich-text',
+          diffMarkdown: '',
         }),
 
         // 工具栏插件
         toolbarPlugin({
-          toolbarContents: () => (
-            <DiffSourceToggleWrapper>
-              <UndoRedo />
-              <BlockTypeSelect />
-              <BoldItalicUnderlineToggles />
-              <CodeToggle />
-              <CreateLink />
-              <InsertImage />
-              <InsertTable />
-              <InsertThematicBreak />
-              <ListsToggle />
-              <InsertFrontmatter />
-            </DiffSourceToggleWrapper>
-          ),
+          toolbarContents: () => <KitchenSinkToolbar />,
         }),
       ]}
       {...props}

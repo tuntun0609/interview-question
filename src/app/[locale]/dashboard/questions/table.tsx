@@ -131,7 +131,11 @@ export function QuestionsTable({ questions }: QuestionsTableProps) {
                   <TableCell>{question.createdAt}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.push(`/dashboard/questions/${question.id}`)}
+                      >
                         编辑
                       </Button>
                       <Button

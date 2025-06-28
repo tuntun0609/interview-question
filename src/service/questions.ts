@@ -137,3 +137,43 @@ export const deleteQuestion = async (questionId: string) => {
 
   return true
 }
+
+export async function updateQuestion(
+  questionId: string,
+  question: {
+    title: string
+    difficulty: number
+    tags: string[]
+    content: string
+  }
+) {
+  const { title, difficulty, tags, content } = question
+  const { userId } = await auth()
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+
+  // 更新题目基本信息
+  await db
+    .update(interviewQuestions)
+    .set({
+      question: title,
+      answer: content,
+      difficulty,
+      updatedAt: new Date(),
+    })
+    .where(eq(interviewQuestions.id, questionId))
+
+  // 删除旧的标签关联
+  await db.delete(interviewQuestionTags).where(eq(interviewQuestionTags.questionId, questionId))
+
+  // 添加新的标签关联
+  await db.insert(interviewQuestionTags).values(
+    tags.map(tagId => ({
+      questionId,
+      tagId,
+    }))
+  )
+
+  return questionId
+}

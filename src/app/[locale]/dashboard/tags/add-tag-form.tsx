@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { Plus } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -16,10 +17,10 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-
-import { addTag } from './actions'
+import { createTag } from '@/service/tags'
 
 export default function AddTagForm() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
@@ -28,13 +29,14 @@ export default function AddTagForm() {
     setLoading(true)
 
     try {
-      const result = await addTag(formData)
+      const result = await createTag({ name: formData.get('name') as string })
 
       if (result.success) {
-        toast.success(result.message || '标签创建成功')
+        toast.success('标签创建成功')
         // 重置表单并关闭对话框
         formRef.current?.reset()
         setOpen(false)
+        router.refresh()
       } else {
         toast.error(result.error || '创建标签失败')
       }

@@ -159,3 +159,19 @@ export async function createTag(data: CreateTagData) {
     }
   }
 }
+
+export const deleteTag = async (id: string) => {
+  try {
+    await db.delete(tags).where(eq(tags.id, id))
+    await db.delete(interviewQuestionTags).where(eq(interviewQuestionTags.tagId, id))
+    return {
+      success: true,
+    }
+  } catch (error) {
+    console.error('删除标签失败:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : '删除标签失败',
+    }
+  }
+}

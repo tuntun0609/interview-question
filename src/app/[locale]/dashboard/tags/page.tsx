@@ -1,20 +1,12 @@
-import { Search, Edit, Trash2 } from 'lucide-react'
+import { Search } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { getTagsWithCount, getTagStats, getPopularTags } from '@/service/tags'
 
 import AddTagForm from './add-tag-form'
+import TagsTable from './table'
 
 export default async function TagsPage() {
   // 从数据库获取标签数据
@@ -107,54 +99,7 @@ export default async function TagsPage() {
           <CardDescription>管理系统中的所有标签</CardDescription>
         </CardHeader>
         <CardContent>
-          {allTags.length === 0 ? (
-            <div className="py-8 text-center">
-              <p className="text-muted-foreground">暂无标签数据</p>
-              <p className="text-muted-foreground mt-2 text-sm">
-                点击「添加标签」按钮创建第一个标签
-              </p>
-            </div>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>标签</TableHead>
-                  <TableHead>题目数量</TableHead>
-                  <TableHead>创建日期</TableHead>
-                  <TableHead>操作</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {allTags.map(tag => (
-                  <TableRow key={tag.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{tag.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">{tag.questionCount}</Badge>
-                    </TableCell>
-                    <TableCell>{tag.createdAt}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                          <Edit className="h-3 w-3" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
+          <TagsTable tags={allTags} />
         </CardContent>
       </Card>
     </div>
