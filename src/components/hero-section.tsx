@@ -1,7 +1,6 @@
 import React from 'react'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
 
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { TextEffect } from '@/components/ui/text-effect'
@@ -27,7 +26,6 @@ const transitionVariants = {
 }
 
 export default function HeroSection() {
-  const t = useTranslations('Hero')
   return (
     <>
       <section className="mb-12">
@@ -39,7 +37,7 @@ export default function HeroSection() {
                   href="#ask-textarea"
                   className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                 >
-                  <span className="text-foreground text-sm">{t('announcement')}</span>
+                  <span className="text-foreground text-sm">🚀 助力求职成功</span>
                   <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
                   <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
@@ -61,7 +59,7 @@ export default function HeroSection() {
                 as="h1"
                 className="mt-8 text-4xl text-balance md:text-5xl lg:mt-16 xl:text-6xl"
               >
-                {t('title')}
+                AI 面试题库
               </TextEffect>
               <TextEffect
                 per="line"
@@ -71,7 +69,7 @@ export default function HeroSection() {
                 as="p"
                 className="text-muted-foreground mx-auto mt-8 max-w-2xl text-lg text-balance"
               >
-                {t('description')}
+                精选海量面试题，AI智能推荐，助你轻松通过技术面试，成功拿到心仪offer
               </TextEffect>
 
               {/* <AnimatedGroup
@@ -94,7 +92,7 @@ export default function HeroSection() {
                 >
                   <Button asChild size="lg" className="rounded-xl px-5 text-base">
                     <Link href="/chat">
-                      <span className="text-nowrap">{t('getStarted')}</span>
+                      <span className="text-nowrap">开始练习</span>
                     </Link>
                   </Button>
                 </div>

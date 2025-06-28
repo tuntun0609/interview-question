@@ -1,44 +1,43 @@
 import React from 'react'
 import { FileText, Users, TrendingUp, Building } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 import { Card, CardContent } from '@/components/ui/card'
 
 const stats = [
   {
-    key: 'totalQuestions' as const,
-    valueKey: 'questionsCount' as const,
+    key: '题目总数',
+    valueKey: '50,000+',
     icon: FileText,
     color: 'text-blue-600 dark:text-blue-400',
   },
   {
-    key: 'totalUsers' as const,
-    valueKey: 'usersCount' as const,
+    key: '注册用户',
+    valueKey: '100,000+',
     icon: Users,
     color: 'text-green-600 dark:text-green-400',
   },
   {
-    key: 'successRate' as const,
-    valueKey: 'successRateValue' as const,
+    key: '通过率',
+    valueKey: '85%',
     icon: TrendingUp,
     color: 'text-purple-600 dark:text-purple-400',
   },
   {
-    key: 'companies' as const,
-    valueKey: 'companiesCount' as const,
+    key: '合作企业',
+    valueKey: '500+',
     icon: Building,
     color: 'text-orange-600 dark:text-orange-400',
   },
 ]
 
 export default function StatsSection() {
-  const t = useTranslations('stats')
-
   return (
     <section className="bg-primary/5 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">{t('title')}</h2>
+          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
+            用户信赖的选择
+          </h2>
         </div>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -56,10 +55,10 @@ export default function StatsSection() {
                   </div>
 
                   {/* 数值 */}
-                  <div className="mb-2 text-3xl font-bold md:text-4xl">{t(stat.valueKey)}</div>
+                  <div className="mb-2 text-3xl font-bold md:text-4xl">{stat.valueKey}</div>
 
                   {/* 标签 */}
-                  <p className="text-muted-foreground font-medium">{t(stat.key)}</p>
+                  <p className="text-muted-foreground font-medium">{stat.key}</p>
 
                   {/* 装饰线 */}
                   <div className="from-primary/50 to-primary mx-auto mt-4 h-1 w-12 rounded-full bg-gradient-to-r transition-all duration-300 group-hover:w-16" />

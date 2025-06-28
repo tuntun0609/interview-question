@@ -1,41 +1,50 @@
 import React from 'react'
 import { Brain, BookOpen, RefreshCw, Users } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 const advantages = [
   {
-    key: 'aiPowered' as const,
+    key: 'aiPowered',
+    title: 'AI智能推荐',
+    description: '根据你的水平和薄弱环节，智能推荐合适的题目',
     icon: Brain,
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    key: 'comprehensive' as const,
+    key: 'comprehensive',
+    title: '题库全面',
+    description: '涵盖各大互联网公司真题，题库持续扩充',
     icon: BookOpen,
     gradient: 'from-green-500 to-emerald-500',
   },
   {
-    key: 'realtime' as const,
+    key: 'realtime',
+    title: '实时更新',
+    description: '紧跟技术发展趋势，题目内容实时更新',
     icon: RefreshCw,
     gradient: 'from-purple-500 to-pink-500',
   },
   {
-    key: 'community' as const,
+    key: 'community',
+    title: '社区讨论',
+    description: '与其他求职者交流经验，分享面试心得',
     icon: Users,
     gradient: 'from-orange-500 to-red-500',
   },
 ]
 
 export default function AdvantagesSection() {
-  const t = useTranslations('advantages')
-
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">{t('title')}</h2>
-          <p className="text-muted-foreground mt-4 text-lg text-balance">{t('description')}</p>
+          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
+            为什么选择我们
+          </h2>
+          <p className="text-muted-foreground mt-4 text-lg text-balance">
+            专业的面试准备平台，助你求职路上一臂之力
+          </p>
         </div>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -52,14 +61,11 @@ export default function AdvantagesSection() {
                   >
                     <Icon className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold">{t(advantage.key)}</h3>
+                  <h3 className="text-xl font-semibold">{advantage.title}</h3>
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {advantage.key === 'aiPowered' && t('aiPoweredDescription')}
-                    {advantage.key === 'comprehensive' && t('comprehensiveDescription')}
-                    {advantage.key === 'realtime' && t('realtimeDescription')}
-                    {advantage.key === 'community' && t('communityDescription')}
+                    {advantage.description}
                   </p>
                 </CardContent>
 

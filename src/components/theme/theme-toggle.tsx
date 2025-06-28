@@ -2,7 +2,6 @@
 
 import { ComponentProps } from 'react'
 import { Laptop, Moon, Sun } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
@@ -18,17 +17,17 @@ export const getSystemTheme = () => {
 
 const themeConfig = [
   {
-    label: 'Light',
+    label: '明亮',
     icon: <Sun className="h-4 w-4" />,
     value: 'light',
   },
   {
-    label: 'Dark',
+    label: '暗色',
     icon: <Moon className="h-4 w-4" />,
     value: 'dark',
   },
   {
-    label: 'System',
+    label: '跟随系统',
     icon: <Laptop className="h-4 w-4" />,
     value: 'system',
   },
@@ -41,7 +40,6 @@ export default function ThemeToggle({
   className?: string
   buttonProps?: ComponentProps<typeof Button>
 }) {
-  const t = useTranslations('HomePage')
   const { theme, setTheme } = useTheme()
 
   const onChangeTheme = (value: string) => {
@@ -74,7 +72,7 @@ export default function ThemeToggle({
             onClick={() => onChangeTheme(config.value)}
           >
             {config.icon}
-            {t(config.value as 'light' | 'dark' | 'system')}
+            {config.label}
           </Button>
         ))}
       </PopoverContent>

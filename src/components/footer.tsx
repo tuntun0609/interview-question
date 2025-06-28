@@ -1,11 +1,8 @@
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
 
 import { Logo } from './logo'
 
 export default function FooterSection() {
-  const t = useTranslations('footer')
-
   const links: {
     group: string
     items?: { title: string; href?: string }[]
@@ -37,7 +34,7 @@ export default function FooterSection() {
         </div>
         <div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t py-6">
           <span className="text-muted-foreground order-last block text-center text-sm md:order-first">
-            © {new Date().getFullYear()} Interview Question, {t('allRightsReserved')}
+            © {new Date().getFullYear()} Interview Question, 版权所有
           </span>
           <div className="order-first flex flex-wrap justify-center gap-6 text-sm md:order-last">
             <Link

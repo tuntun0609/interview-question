@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
 
 import Icon from './icon'
 
 export const Logo = () => {
-  const locale = useLocale()
   return (
     <Link
       aria-label="home"
@@ -12,7 +10,7 @@ export const Logo = () => {
       href="/"
     >
       <Icon className="h-8 w-8" />
-      {locale === 'zh' ? '面试宝' : 'Interview Question Generator'}
+      面试宝
     </Link>
   )
 }

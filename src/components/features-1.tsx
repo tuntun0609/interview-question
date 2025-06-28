@@ -1,17 +1,15 @@
 import { ReactNode } from 'react'
 import { Settings2, Sparkles, Zap } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export default function Features() {
-  const t = useTranslations('features')
   return (
     <section className="bg-zinc-50 py-16 md:py-32 dark:bg-transparent">
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
-          <h2 className="text-4xl font-semibold text-balance lg:text-5xl">{t('title')}</h2>
-          <p className="mt-4">{t('description')}</p>
+          <h2 className="text-4xl font-semibold text-balance lg:text-5xl">覆盖您的需求</h2>
+          <p className="mt-4">可以轻松构建您的SaaS应用</p>
         </div>
         <div className="mx-auto mt-8 grid max-w-sm gap-6 *:text-center md:mt-16 @min-4xl:max-w-full @min-4xl:grid-cols-3">
           <Card className="group shadow-zinc-950/5">
@@ -20,11 +18,11 @@ export default function Features() {
                 <Zap className="size-6" aria-hidden />
               </CardDecorator>
 
-              <h3 className="mt-6 font-medium">{t('customizable')}</h3>
+              <h3 className="mt-6 font-medium">可定制</h3>
             </CardHeader>
 
             <CardContent>
-              <p className="mt-3 text-sm">{t('customizableDescription')}</p>
+              <p className="mt-3 text-sm">广泛的自定制选项，允许您根据您的特定需求定制每个方面。</p>
             </CardContent>
           </Card>
 
@@ -34,11 +32,13 @@ export default function Features() {
                 <Settings2 className="size-6" aria-hidden />
               </CardDecorator>
 
-              <h3 className="mt-6 font-medium">{t('youHaveFullControl')}</h3>
+              <h3 className="mt-6 font-medium">您拥有完全控制权</h3>
             </CardHeader>
 
             <CardContent>
-              <p className="mt-3 text-sm">{t('youHaveFullControlDescription')}</p>
+              <p className="mt-3 text-sm">
+                从设计元素到功能，您拥有完全控制权，以创建独特且个性化的体验。
+              </p>
             </CardContent>
           </Card>
 
@@ -48,11 +48,13 @@ export default function Features() {
                 <Sparkles className="size-6" aria-hidden />
               </CardDecorator>
 
-              <h3 className="mt-6 font-medium">{t('poweredByAI')}</h3>
+              <h3 className="mt-6 font-medium">由AI驱动</h3>
             </CardHeader>
 
             <CardContent>
-              <p className="mt-3 text-sm">{t('poweredByAIDescription')}</p>
+              <p className="mt-3 text-sm">
+                元素到功能，您拥有完全控制权，以创建独特且个性化的体验。
+              </p>
             </CardContent>
           </Card>
         </div>

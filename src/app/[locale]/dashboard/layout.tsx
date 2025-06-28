@@ -3,7 +3,6 @@ import { FileQuestion, Tags } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-import { LocaleSwitch } from '@/components/blocks/locale-switch'
 import ThemeToggle from '@/components/theme/theme-toggle'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -77,7 +76,6 @@ const DashboardLayout = async ({
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <LocaleSwitch />
             <UserButton />
           </div>
         </header>

@@ -2,7 +2,7 @@
 
 import { Check, ChevronDown, Languages } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { useLocale, useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -10,12 +10,16 @@ import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
+const localeNames = {
+  zh: '中文',
+  en: 'English',
+}
+
 export const LocaleSwitch = ({ className }: { className?: string }) => {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
   const params = useParams()
-  const t = useTranslations('LocaleSwitch')
 
   const handleLanguageChange = (nextLocale: string) => {
     router.replace(
@@ -32,7 +36,7 @@ export const LocaleSwitch = ({ className }: { className?: string }) => {
       <PopoverTrigger asChild>
         <Button variant="ghost" className={cn('flex items-center gap-2', className)}>
           <Languages className="h-4 w-4" />
-          {t('locale', { locale: locale })}
+          {localeNames[locale as keyof typeof localeNames] || locale}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
@@ -45,7 +49,7 @@ export const LocaleSwitch = ({ className }: { className?: string }) => {
             onClick={() => handleLanguageChange(lang)}
           >
             <Check className={cn('h-4 w-4', locale === lang ? 'opacity-100' : 'opacity-0')} />
-            {t('locale', { locale: lang })}
+            {localeNames[lang as keyof typeof localeNames] || lang}
           </Button>
         ))}
       </PopoverContent>

@@ -1,36 +1,43 @@
 import React from 'react'
 import { Search, Play, BookOpen } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 import { Card, CardContent } from '@/components/ui/card'
 
 const steps = [
   {
-    key: 'step1' as const,
+    key: 'step1',
+    title: '选择领域',
+    description: '选择你想要练习的技术领域和难度级别',
     icon: Search,
     color: 'bg-blue-500 text-white',
   },
   {
-    key: 'step2' as const,
+    key: 'step2',
+    title: '开始练习',
+    description: '开始答题练习，支持模拟面试环境',
     icon: Play,
     color: 'bg-green-500 text-white',
   },
   {
-    key: 'step3' as const,
+    key: 'step3',
+    title: '查看解析',
+    description: '查看详细解析和参考答案，深入理解',
     icon: BookOpen,
     color: 'bg-purple-500 text-white',
   },
 ]
 
 export default function HowItWorksSection() {
-  const t = useTranslations('howItWorks')
-
   return (
     <section className="bg-muted/50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">{t('title')}</h2>
-          <p className="text-muted-foreground mt-4 text-lg text-balance">{t('description')}</p>
+          <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl">
+            简单三步，开启面试准备
+          </h2>
+          <p className="text-muted-foreground mt-4 text-lg text-balance">
+            智能化的学习流程，让面试准备更高效
+          </p>
         </div>
 
         <div className="mt-16 grid gap-8 md:grid-cols-3">
@@ -60,13 +67,11 @@ export default function HowItWorksSection() {
                     </div>
 
                     {/* 标题 */}
-                    <h3 className="mb-4 text-xl font-semibold">{t(step.key)}</h3>
+                    <h3 className="mb-4 text-xl font-semibold">{step.title}</h3>
 
                     {/* 描述 */}
                     <p className="text-muted-foreground text-sm leading-relaxed">
-                      {step.key === 'step1' && t('step1Description')}
-                      {step.key === 'step2' && t('step2Description')}
-                      {step.key === 'step3' && t('step3Description')}
+                      {step.description}
                     </p>
                   </CardContent>
                 </Card>

@@ -7,7 +7,6 @@ import { useLocale } from 'next-intl'
 
 import { cn } from '@/lib/utils'
 
-import { LocaleSwitch } from './blocks/locale-switch'
 import { Logo } from './logo'
 import ThemeToggle from './theme/theme-toggle'
 import { Button } from './ui/button'
@@ -90,7 +89,6 @@ export const HeroHeader = () => {
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                 <div className="flex items-center justify-between gap-2">
-                  <LocaleSwitch />
                   <ThemeToggle />
                   <SignedOut>
                     <SignUpButton>
