@@ -5,8 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { getTagsWithCount, getTagStats, getPopularTags } from '@/service/tags'
 
-import AddTagForm from './add-tag-form'
 import TagsTable from './table'
+import TagForm from './tag-form'
 
 export default async function TagsPage() {
   // 从数据库获取标签数据
@@ -23,7 +23,7 @@ export default async function TagsPage() {
           <h1 className="text-2xl font-bold tracking-tight">标签管理</h1>
           <p className="text-muted-foreground">管理和组织题目标签，便于分类和检索</p>
         </div>
-        <AddTagForm />
+        <TagForm />
       </div>
 
       <Card>

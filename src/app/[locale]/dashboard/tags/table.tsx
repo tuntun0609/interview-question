@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/table'
 import { deleteTag, type TagWithCount } from '@/service/tags'
 
+import EditTagForm from './tag-form'
+
 interface TagsTableProps {
   tags: TagWithCount[]
 }
@@ -86,9 +88,11 @@ export default function TagsTable({ tags }: TagsTableProps) {
             <TableCell>{tag.createdAt}</TableCell>
             <TableCell>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  <Edit className="h-3 w-3" />
-                </Button>
+                <EditTagForm mode="edit" tag={tag}>
+                  <Button variant="outline" size="sm">
+                    <Edit className="h-3 w-3" />
+                  </Button>
+                </EditTagForm>
                 <DeleteTagButton id={tag.id} />
               </div>
             </TableCell>

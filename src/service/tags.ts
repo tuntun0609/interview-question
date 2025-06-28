@@ -1,6 +1,6 @@
 'use server'
 
-import { eq, desc, count } from 'drizzle-orm'
+import { eq, desc, count, and } from 'drizzle-orm'
 
 import { db } from '@/db'
 import { tags, interviewQuestionTags } from '@/db/schema'
@@ -172,6 +172,44 @@ export const deleteTag = async (id: string) => {
     return {
       success: false,
       error: error instanceof Error ? error.message : '删除标签失败',
+    }
+  }
+}
+
+// 更新标签
+export async function updateTag(id: string, data: CreateTagData) {
+  try {
+    const { name } = data
+
+    // 检查标签名是否已存在（排除当前标签）
+    const existingTag = await db
+      .select()
+      .from(tags)
+      .where(and(eq(tags.name, name.trim()), eq(tags.id, id)))
+      .limit(1)
+
+    if (existingTag.length > 0) {
+      throw new Error('标签名称已存在')
+    }
+
+    // 更新标签
+    const updatedTag = await db
+      .update(tags)
+      .set({
+        name: name.trim(),
+      })
+      .where(eq(tags.id, id))
+      .returning()
+
+    return {
+      success: true,
+      data: updatedTag[0],
+    }
+  } catch (error) {
+    console.error('更新标签失败:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : '更新标签失败',
     }
   }
 }
